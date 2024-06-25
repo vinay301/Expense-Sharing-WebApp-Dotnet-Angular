@@ -13,14 +13,18 @@ baseApiUrl : string = environment.baseApiUrl;
 constructor(private http : HttpClient) { }
 
 getAllGroups() : Observable<Group[]>{
-  return this.http.get<{ $values: Group[] }>(this.baseApiUrl + '/api/group/GetAllGroups').pipe(
-    map(response => response.$values)
-  );
-  // return this.http.get<Group[]>(this.baseApiUrl + '/api/group/GetAllGroups')
+  // return this.http.get<{ $values: Group[] }>(this.baseApiUrl + '/api/group/GetAllGroups').pipe(
+  //   map(response => response.$values)
+  // );
+  return this.http.get<Group[]>(this.baseApiUrl + '/api/group/GetAllGroups')
 }
 
 getGroupById(groupId : string) : Observable<Group>{
   return this.http.get<Group>(this.baseApiUrl + `/api/group/GetGroupById/${groupId}`)
+}
+
+addGroup(groupObj : Group) : Observable<Group>{
+  return this.http.post<Group>(this.baseApiUrl + '/api/group/CreateGroup',groupObj)
 }
 
 }

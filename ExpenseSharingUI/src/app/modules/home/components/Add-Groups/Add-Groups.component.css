@@ -1,6 +1,6 @@
-*{
+/* *{
     overflow: hidden;
-}
+} */
 .card{
     padding: 0px 15px;
     border-radius: 20px
@@ -112,7 +112,22 @@ form >*{
     margin-left: 30px !important;
 }
 
-/*Tabs CSS */
+.multiselect-dropdown[_ngcontent-ng-c692748064] .dropdown-btn[_ngcontent-ng-c692748064] {
+    display: inline-block;
+    border: none;
+    background-color: #f0f0f0;
+    width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.52857143;
+    text-align: left;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border-radius: 4px;
+}
+
 
 
 

@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <h3>All Groups</h3>
   <div class="card" style="width: 18rem;" *ngFor="let group of groups ">
     <div class="card-body">
@@ -8,5 +8,40 @@
       <a routerLink="" class="btn btn-success rounded-pill" [routerLink]="['/','view-group', group.id]">View Group</a>
     </div>
   </div>
-</div>
+</div> -->
+
+ <!--Cart section-->
+ <section class="product-cart">
+  <div class="container heading text-center">
+      <h1 class="text-center font-weight-bold">All Groups</h1>
+  </div>
+
+  <div class="container" id="cartBgId">
+      <div class="cart">
+          <div class="cart-items"  *ngFor="let group of groups ">
+              <div class="cart-item">
+                  <div class="cart-item-image">
+                      <img src="https://img.freepik.com/free-vector/isolated-banana-fruit-cartoon_1308-127586.jpg?w=826&t=st=1686499381~exp=1686499981~hmac=2a5d3b2d1d3c717daf04f76dc0598b716a74b5e82c13dcfd0a9436c448b99476" alt="">
+                  </div>
+                  <div class="cart-item-info">
+                      <h4>{{group.name}}</h4>
+                      <p>{{group.description}}</p>
+                  </div>
+                  <div class="order-date d-inline-flex">
+                      <p class="text-muted px-4">{{group.createdDate | date:'dd-MM-yyyy'}}</p>
+                      <div class="cart-buttons">
+                        <button class="rounded-pill px-2 py-1 text-white">View Group</button>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <!-- <div class="cart-total">
+              <h3>Total: <span>&#8377;</span>400</h3>
+          </div>
+          <div class="cart-buttons">
+              <button class="rounded-pill px-2 py-1 text-white">Continue Shopping</button>
+          </div> -->
+      </div>
+  </div>
+</section>
 

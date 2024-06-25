@@ -7,8 +7,9 @@ export interface Group{
  name : string,
  description : string   
  createdDate : Date,
- memberIds: string[] | null;
- userGroups: { $id: string, $values: UserGroup[] };
- //expenses : Expense[]
-expenses : { $id: string, $values: Expense[]}
+ memberIds: string[];
+ userGroups : UserGroup[];
+ //userGroups: { $id: string, $values: UserGroup[] };
+ expenses : Expense[]
+//expenses : { $id: string, $values: Expense[]}
 }

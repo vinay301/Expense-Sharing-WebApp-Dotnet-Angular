@@ -20,7 +20,7 @@ export class AllExpensesComponent implements OnInit {
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (res : Group) => {
         this.groupDetails = res;
-        this.expenses = res.expenses.$values;
+        this.expenses = res.expenses;
         console.log(this.expenses)
       }
     )

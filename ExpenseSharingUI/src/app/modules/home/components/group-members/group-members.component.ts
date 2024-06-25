@@ -20,7 +20,7 @@ export class GroupMembersComponent implements OnInit {
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (res : Group) => {
         this.groupDetails = res;
-        this.members = res.userGroups.$values.map((userGroup: any) => userGroup.user);
+        this.members = res.userGroups.map((userGroup: any) => userGroup.user);
       }
     )
   }
