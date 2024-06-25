@@ -1,0 +1,77 @@
+<!-- <div class="container-fluid display-details">
+  <div class="group-content">
+    <div class="col-lg-6 mb-5" *ngIf="groupDetails">
+      <div class="text-center">
+          <h1><span>{{groupDetails.name}}</span></h1>
+          <h6><span>{{groupDetails.description}}</span></h6>
+          <h6>Date Of Creation: <span>{{groupDetails.createdDate | date:'dd-MM-yyyy'}}</span></h6>
+
+          <div class="members-card">
+              <h4>Members:</h4>
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <ul>
+                    <li *ngFor="let member of members">
+                      {{ member.name }} ({{ member.email }})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+         
+        
+          <h4>Expenses: <span>{{groupDetails.expenses}}</span></h4>
+          <ul>
+            <li *ngFor="let expense of expenses">
+              <p>Description: {{ expense.description }}</p>
+              <p>Amount: {{ expense.amount }}</p>
+              <p>Date: {{ expense.date | date: 'dd-MM-yyyy' }}</p>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+ 
+</div> -->
+
+<div class="text-center m-4">
+  {{groupDetails.name}}
+</div>
+<div class="display-row">
+  <div class="total-expense-show card">
+    <span>200</span>
+    <h5>Total Expense</h5>
+  </div>
+
+  <div class="add-expense">
+    <a [routerLink]="['/','add-expense']">
+      <mat-icon class="text-light padded-icon">add</mat-icon>
+    </a>
+    <h5>Add Expense</h5>
+  </div>
+
+  <div class="group-members">
+    <a [routerLink]="['/','members',groupDetails.id]">
+      <mat-icon class="text-light padded-icon">group</mat-icon>
+    </a>
+    <h5>Group Members</h5>
+  </div>
+
+  <div class="all-expense">
+      <a [routerLink]="['/','all-expenses',groupDetails.id]">
+        <mat-icon class="text-light padded-icon">money</mat-icon>
+      </a>
+    <h5>All Expenses</h5>
+  </div>
+</div>
+
+<h4>Expenses:</h4>
+<ul>
+  <li *ngFor="let expense of expenses">
+    <p>Description: {{ expense.description }}</p>
+    <p>Amount: {{ expense.amount }}</p>
+    <p>Date: {{ expense.date | date: 'dd-MM-yyyy' }}</p>
+  </li>
+</ul>
+
+

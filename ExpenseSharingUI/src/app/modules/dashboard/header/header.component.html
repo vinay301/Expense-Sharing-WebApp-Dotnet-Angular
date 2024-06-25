@@ -1,0 +1,17 @@
+<header>
+  <div class="navbar navbar-expand px-2">
+    <div class="side-nav-button p-2 me-2 text-light" (click)="sideNavToggle()">
+      <mat-icon class="menu-icon">menu</mat-icon>
+    </div>
+   
+    <h3 class="navbar-brand px-4 text-light">SettleUp</h3>
+    <nav class="ml-auto">
+      <ul class="nav_links mt-2 text-light">
+       <li *ngIf="isLoggedIn">Hi,{{username}}</li>
+      </ul>
+     
+    </nav>
+    <a (click)="logout()"><button type="button" class="btn">Logout</button></a>
+  </div>
+ 
+</header>

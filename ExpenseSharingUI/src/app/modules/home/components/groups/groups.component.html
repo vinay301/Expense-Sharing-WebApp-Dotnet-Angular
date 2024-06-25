@@ -1,0 +1,12 @@
+<div>
+  <h3>All Groups</h3>
+  <div class="card" style="width: 18rem;" *ngFor="let group of groups ">
+    <div class="card-body">
+      <h5 class="card-title">{{group.name}}</h5>
+      <p class="card-text">{{group.description}}</p>
+      <a routerLink="" class="btn btn-primary me-2 rounded-pill">Add Expense</a>
+      <a routerLink="" class="btn btn-success rounded-pill" [routerLink]="['/','view-group', group.id]">View Group</a>
+    </div>
+  </div>
+</div>
+

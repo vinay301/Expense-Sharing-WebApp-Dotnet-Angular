@@ -1,0 +1,64 @@
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+          <div class="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
+              <div class="card d-flex mx-auto my-3">
+                  <div class="row">
+                      <div class="col-md-5 col-sm-12 col-xs-12 left-grid p-5">
+                          <!-- <div class="row mb-5 m-3"> 
+                            <img src="../../../../../assets/images/addGroup.png" class="image" alt="" />
+                          </div>  -->
+                          <div class="row justify-content-center">
+                              <div class="w-75 mx-md-5 mx-1 mx-sm-2 mb-5 mt-4 px-sm-5 px-md-2 px-xl-1 px-2">
+                                  <h1 class="wlcm">Add Group</h1> 
+                                  <span class="left-text">Simplify group finances</span>
+                                  <br>
+                                  <span class="sp1"> 
+                                    <span class="px-3 mx-1 bg-dark rounded-pill"></span> 
+                                    <span class="mx-1 px-1 rounded-circle"></span>
+                                    <span class="mx-1 px-1 rounded-circle"></span> 
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-md-7 col-sm-12 col-xs-12 px-5 pb-5">
+                          <div class="row">
+                              <form class="px-3 pb-2">
+                                      <div class="form-group row col-12">
+                                        <label for="groupName" class="col-lg-2 col-sm-4 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                        <!--creating a template variable (groupName) and pass NgModel as refernce to this variable-->
+                                          <input type="text" class="form-control " id="groupName" placeholder="Enter Group Name"
+                                          ngModel formControlName="name">                    
+                                        </div>
+                                      </div> 
+
+                                      <div class="form-group row col-12">
+                                        <label for="groupDesc" class="col-lg-2 col-sm-4 col-form-label">About</label>
+                                        <div class="col-sm-10">
+                                          <textarea [rows]="3" cols="4" type="text" class="form-control " id="groupDesc" placeholder="Enter Group Description"
+                                          ngModel formControlName="description">    
+                                          </textarea>                
+                                        </div>
+                                      </div> 
+
+                                      <div class="form-group row col-12">
+                                        <label for="groupDesc" class="col-lg-3 col-sm-4 col-form-label">Members</label>
+                                        <div class="col-sm-9">
+                                          <select name="" id="">
+                                            <option value="">Select Members</option>
+                                            <option value="">Member 1</option>
+                                            <option value="">Member 2</option>
+                                          </select>
+                                        </div>
+                                      </div> 
+
+                                      <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn">Save</button>
+                            </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>

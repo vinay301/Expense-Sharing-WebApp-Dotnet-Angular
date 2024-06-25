@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+li, a, h3, button{
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+}
+
+/* header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 5%;
+   
+} */
+.navbar{
+    background-color: #A5582C;
+    height: 4rem;
+}
+.menu-icon{
+    color:#ffffff;
+}
+.logo{
+    cursor: pointer;
+    color:#A5582C;
+}
+
+.nav_links{
+    list-style: none;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.nav_links li{
+   
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav_links li a{
+    color:#181818 !important;
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+}
+
+.nav_links li a:hover{
+    color: #a5582c !important;
+}
+
+.btn{
+  
+    margin-left: 600px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color:#A5582C;
+    padding: 9px 10px;
+    border:none;
+    font-size: small;
+    transition: all 0.3s ease 0s;
+}
+
+.btn:hover{
+    cursor: pointer;
+    background-color: #A5582C;
+    color: #ffffff;
+    border:#ffffff solid 1.5px;
+}
+
+.side-nav-button:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    cursor:pointer
+}

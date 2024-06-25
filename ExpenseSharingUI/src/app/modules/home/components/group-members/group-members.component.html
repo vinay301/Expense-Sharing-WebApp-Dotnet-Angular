@@ -1,0 +1,25 @@
+<div class="front">
+  <div class="container">
+   <h4 class="text-center mt-5 mb-3">Members Of </h4>
+  <div class="resultTable mt-5">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Member Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+           
+          </tr>
+        </thead>
+        <tbody *ngFor="let member of members">        
+          <tr>
+            <td>{{member.id}}</td>
+            <td>{{member.name}}</td>
+            <td>{{member.email}}</td>
+           
+          </tr>
+        </tbody>
+      </table>    
+  </div>
+  </div>
+  </div>
