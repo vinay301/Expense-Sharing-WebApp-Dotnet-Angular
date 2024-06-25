@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qXZQxBHtDZfsb0ehM8dEkXGshr1xgcaXUvocY4N52CLrh+e+PHq8gDwi/gMN8+qHiOMeZjagicuv5PSe4zzPTQ==",
+  "dgSpecHash": "fDmDyrLKaE1QMeufuYM/8Yi5OIFhirzMzSXEvO3xeWKl2/qu3ihjbWt3UcjiLIYagUmbuk5FY2Zc2t64XknZUg==",
   "success": true,
   "projectFilePath": "C:\\Users\\vinaysharma04\\OneDrive - Nagarro\\Desktop\\PersonalProjects\\Expense Sharing Application - Dotnet & Angular\\ExpenseSharingWebApp\\ExpenseSharingWebApp\\ExpenseSharingWebApp.csproj",
   "expectedPackageFiles": [
@@ -23,9 +23,11 @@
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\7.0.16\\microsoft.aspnetcore.diagnostics.entityframeworkcore.7.0.16.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\7.0.16\\microsoft.aspnetcore.identity.entityframeworkcore.7.0.16.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\7.0.16\\microsoft.aspnetcore.identity.ui.7.0.16.nupkg.sha512",
+    "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.16\\microsoft.aspnetcore.jsonpatch.7.0.16.nupkg.sha512",
+    "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\7.0.16\\microsoft.aspnetcore.mvc.newtonsoftjson.7.0.16.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
-    "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.4\\microsoft.data.sqlclient.5.1.4.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.1\\microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.16\\microsoft.entityframeworkcore.7.0.16.nupkg.sha512",
@@ -67,6 +69,7 @@
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\vinaysharma04\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

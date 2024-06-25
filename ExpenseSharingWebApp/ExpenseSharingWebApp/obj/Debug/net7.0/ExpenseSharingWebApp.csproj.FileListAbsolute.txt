@@ -100,3 +100,6 @@ C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Shari
 C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\obj\Debug\net7.0\ExpenseSharingWebApp.pdb
 C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\obj\Debug\net7.0\ExpenseSharingWebApp.genruntimeconfig.cache
 C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\obj\Debug\net7.0\ref\ExpenseSharingWebApp.dll
+C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\vinaysharma04\OneDrive - Nagarro\Desktop\PersonalProjects\Expense Sharing Application - Dotnet & Angular\ExpenseSharingWebApp\ExpenseSharingWebApp\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
