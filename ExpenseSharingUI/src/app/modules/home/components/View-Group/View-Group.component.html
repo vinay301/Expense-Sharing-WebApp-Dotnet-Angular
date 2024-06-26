@@ -1,50 +1,15 @@
-<!-- <div class="container-fluid display-details">
-  <div class="group-content">
-    <div class="col-lg-6 mb-5" *ngIf="groupDetails">
-      <div class="text-center">
-          <h1><span>{{groupDetails.name}}</span></h1>
-          <h6><span>{{groupDetails.description}}</span></h6>
-          <h6>Date Of Creation: <span>{{groupDetails.createdDate | date:'dd-MM-yyyy'}}</span></h6>
-
-          <div class="members-card">
-              <h4>Members:</h4>
-              <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                  <ul>
-                    <li *ngFor="let member of members">
-                      {{ member.name }} ({{ member.email }})
-                    </li>
-                  </ul>
-                </div>
-              </div>
-          </div>
-         
-        
-          <h4>Expenses: <span>{{groupDetails.expenses}}</span></h4>
-          <ul>
-            <li *ngFor="let expense of expenses">
-              <p>Description: {{ expense.description }}</p>
-              <p>Amount: {{ expense.amount }}</p>
-              <p>Date: {{ expense.date | date: 'dd-MM-yyyy' }}</p>
-            </li>
-          </ul>
-      </div>
-    </div>
-  </div>
- 
-</div> -->
 
 <div class="text-center m-4">
   {{groupDetails.name}}
 </div>
 <div class="display-row">
   <div class="total-expense-show card">
-    <span>200</span>
+    <span>{{ totalExpenses | currency:'INR' }}</span>
     <h5>Total Expense</h5>
   </div>
 
   <div class="add-expense">
-    <a [routerLink]="['/','add-expense']">
+    <a [routerLink]="['/','add-expense',groupDetails.id]">
       <mat-icon class="text-light padded-icon">add</mat-icon>
     </a>
     <h5>Add Expense</h5>
@@ -65,13 +30,29 @@
   </div>
 </div>
 
-<h4>Expenses:</h4>
-<ul>
-  <li *ngFor="let expense of expenses">
-    <p>Description: {{ expense.description }}</p>
-    <p>Amount: {{ expense.amount }}</p>
-    <p>Date: {{ expense.date | date: 'dd-MM-yyyy' }}</p>
-  </li>
-</ul>
+ <section class="product-cart">
+  <div class="container heading text-center">
+      <h1 class="text-center font-weight-bold">Your Expenses</h1>
+  </div>
+
+  <div class="container" id="cartBgId">
+      <div class="cart">
+          <div class="cart-items"  *ngFor="let expense of expenses">
+              <div class="cart-item">
+                  <div class="cart-item-image">
+                      <img src="https://img.freepik.com/free-vector/isolated-banana-fruit-cartoon_1308-127586.jpg?w=826&t=st=1686499381~exp=1686499981~hmac=2a5d3b2d1d3c717daf04f76dc0598b716a74b5e82c13dcfd0a9436c448b99476" alt="">
+                  </div>
+                  <div class="cart-item-info">
+                      <h4>Amount: {{ expense.amount }}</h4>
+                      <p>{{ expense.description }}</p>
+                  </div>
+                  <div class="order-date d-inline-flex">
+                      <p class="text-muted px-4">{{ expense.date | date: 'dd-MM-yyyy' }}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 
 

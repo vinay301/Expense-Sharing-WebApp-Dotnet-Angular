@@ -30,7 +30,7 @@
                   <div class="order-date d-inline-flex">
                       <p class="text-muted px-4">{{group.createdDate | date:'dd-MM-yyyy'}}</p>
                       <div class="cart-buttons">
-                        <button class="rounded-pill px-2 py-1 text-white">View Group</button>
+                        <button class="rounded-pill px-2 py-1 text-white" [routerLink]="['/','view-group', group.id]">View Group</button>
                     </div>
                   </div>
               </div>

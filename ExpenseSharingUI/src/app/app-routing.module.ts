@@ -19,7 +19,7 @@ const routes: Routes = [
     {path:'home',component:GroupsComponent},
     {path:'view-group/:id',component:ViewGroupComponent},
     {path:'all-expenses/:id',component:AllExpensesComponent},
-    {path:'add-expense',component:AddExpenseComponent},
+    {path:'add-expense/:id',component:AddExpenseComponent},
     {path:'members/:id', component:GroupMembersComponent}
 ]},
 

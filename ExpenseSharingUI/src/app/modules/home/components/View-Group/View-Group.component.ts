@@ -4,6 +4,7 @@ import { GroupService } from '../../services/group.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../../../core/models/user.model';
 import { Expense } from '../../../../core/models/expense.model';
+import { ExpenseService } from '../../services/expense.service';
 
 @Component({
   selector: 'app-View-Group',
@@ -15,29 +16,32 @@ export class ViewGroupComponent implements OnInit {
   groupDetails !: Group;
   members: User[] = [];
   expenses: Expense[] = [];
-  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute) { }
+  totalExpenses: number = 0;
+  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService : ExpenseService) { }
 
   ngOnInit() {
     let groupId = this.activeRoute.snapshot.paramMap.get('id');
+    
     //console.warn(groupId);
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (result : Group) => {
         this.groupDetails = result;
-        console.warn(result)
-        console.log("members:", result.userGroups)
+        // console.warn(result)
+        // console.log("members:", result.userGroups)
         // Extract users from userGroups
         this.members = result.userGroups.map((userGroup: any) => userGroup.user);
-        // this.expenses = res.expenses.filter(expense => typeof expense === 'object') // Filter out strings
-        //             .map(expense => expense as Expense);
         this.expenses = result.expenses;
-      
-        //this.expenses = result.expenses.$values;
-
-      
-         
-        // console.log("Extracted expenses:", this.expenses);
       }  
     )
+
+    groupId && this.calculateTotalExpenses(groupId);
+  }
+
+  calculateTotalExpenses(groupId : string) {
+    this.expenseService.getAllExpensesOfGroup(groupId).subscribe((expenses) => {
+      this.totalExpenses = expenses.reduce((acc, expense) => acc + expense.amount, 0)
+      //console.log(this.totalExpenses)
+    })
   }
 
 }

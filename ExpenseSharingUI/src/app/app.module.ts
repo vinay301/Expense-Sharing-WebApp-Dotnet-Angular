@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { CustomMultiSelectComponent } from './shared/components/custom-multi-select/custom-multi-select.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     ViewGroupComponent,
     AllExpensesComponent,
     AddExpenseComponent,
-    GroupMembersComponent
+    GroupMembersComponent,
+    CustomMultiSelectComponent
   ],
   imports: [
     BrowserModule,

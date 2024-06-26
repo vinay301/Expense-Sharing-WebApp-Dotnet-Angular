@@ -46,6 +46,7 @@ export class AddGroupsComponent implements OnInit {
     this.userService.getAllUsers().subscribe({
       next : (users) => {
         this.users = users;
+        console.log(users)
       }
     })
   }

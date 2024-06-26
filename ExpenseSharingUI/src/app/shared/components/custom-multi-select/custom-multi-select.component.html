@@ -1,0 +1,24 @@
+<div class="multi-select-container">
+  <div class="multi-select-header" (click)="toggleDropdown()">
+    <span *ngIf="selectedItems.length === 0">Select Members</span>
+    <span *ngIf="selectedItems.length > 0">{{ selectedItems.length }} items selected</span>
+    <span class="arrow" [ngClass]="{'open': isOpen}">&#9662;</span>
+  </div>
+  <div class="multi-select-dropdown" *ngIf="isOpen">
+    <div class="multi-select-actions">
+      <button type="button" (click)="onSelectAll()">Select All</button>
+      <button type="button" (click)="onDeselectAll()">Deselect All</button>
+    </div>
+
+    <div class="multi-select-options">
+      <div *ngFor="let option of options" class="multi-select-option">
+        <input
+          type="checkbox"
+          [checked]="isSelected(option.id)"
+          (change)="onSelectItem(option.id)"
+        />
+        {{ option.name }}
+      </div>
+    </div>
+  </div>
+</div>
