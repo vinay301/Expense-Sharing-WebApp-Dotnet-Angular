@@ -26,6 +26,8 @@ export class AddExpenseComponent implements OnInit {
 
 
   addExpenseGroup : Expense = {
+    showDetails:true,
+    expenseSplits:[],
     id:'',
     date:new Date(),
     amount:0,

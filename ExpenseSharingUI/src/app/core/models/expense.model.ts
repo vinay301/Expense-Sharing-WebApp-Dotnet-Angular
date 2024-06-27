@@ -1,6 +1,8 @@
 
 
 export interface Expense {
+    expenseSplits: any;
+    showDetails: boolean;
     id:string,
     date:Date,
     amount:number,

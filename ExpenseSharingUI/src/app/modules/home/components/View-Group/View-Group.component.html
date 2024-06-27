@@ -40,7 +40,7 @@
           <div class="cart-items"  *ngFor="let expense of expenses">
               <div class="cart-item">
                   <div class="cart-item-image">
-                      <img src="https://img.freepik.com/free-vector/isolated-banana-fruit-cartoon_1308-127586.jpg?w=826&t=st=1686499381~exp=1686499981~hmac=2a5d3b2d1d3c717daf04f76dc0598b716a74b5e82c13dcfd0a9436c448b99476" alt="">
+                      <img [src]="getRandomExpenseImage()" alt="">
                   </div>
                   <div class="cart-item-info">
                       <h4>Amount: {{ expense.amount }}</h4>
@@ -54,5 +54,9 @@
       </div>
   </div>
 </section>
+
+<div *ngFor="let userId of getUserIds()">
+  User ID: {{ userId }} - Balance: {{ balances[userId] | currency:'INR' }}
+</div>
 
 

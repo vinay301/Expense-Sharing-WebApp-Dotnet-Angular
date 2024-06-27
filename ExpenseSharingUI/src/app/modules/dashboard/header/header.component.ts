@@ -21,7 +21,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
-    this.username = this.authService.getUsernameFromToken();
+    setTimeout(()=>{
+      this.username = this.authService.getUsernameFromToken();
+    },1000)
+  
     this.userId = this.authService.getUserIdFromToken();
 
     // console.log(this.isLoggedIn)

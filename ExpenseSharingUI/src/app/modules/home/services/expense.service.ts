@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Expense } from '../../../core/models/expense.model';
 import { Observable } from 'rxjs';
+import { ExpenseSplit } from '../../../core/models/expense-split.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,14 @@ addExpense(expenseObj : Expense):Observable<Expense>{
 
 getAllExpensesOfGroup(groupId : string):Observable<Expense[]>{
   return this.http.get<Expense[]>(this.baseApiUrl + `/api/Expenses/GetAllExpenseOfGroup/${groupId}`);
+}
+
+getExpenseById(expenseId : string) : Observable<ExpenseSplit>{
+  return this.http.get<ExpenseSplit>(this.baseApiUrl + `/api/Expenses/GetExpenseById/${expenseId}`);
+}
+
+getGroupBalanceByGroupId(groupId:string) : Observable<{ [key: string]: number }>{
+  return this.http.get<{ [key: string]: number }>(this.baseApiUrl + `/api/Expenses/group/balances/${groupId}`);
 }
 
 }

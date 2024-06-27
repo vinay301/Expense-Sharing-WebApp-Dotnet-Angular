@@ -8,6 +8,7 @@ import { ViewGroupComponent } from './modules/home/components/View-Group/View-Gr
 import { AllExpensesComponent } from './modules/home/components/All-Expenses/All-Expenses.component';
 import { AddExpenseComponent } from './modules/home/components/Add-Expense/Add-Expense.component';
 import { GroupMembersComponent } from './modules/home/components/group-members/group-members.component';
+import { authGuard } from './core/guards/auth.guard';
 
 
 
@@ -21,7 +22,9 @@ const routes: Routes = [
     {path:'all-expenses/:id',component:AllExpensesComponent},
     {path:'add-expense/:id',component:AddExpenseComponent},
     {path:'members/:id', component:GroupMembersComponent}
-]},
+],
+canActivate:[authGuard]
+},
 
 ];
 
