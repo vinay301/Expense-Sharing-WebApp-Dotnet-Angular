@@ -20,13 +20,13 @@
         <div class="cart-items"  *ngFor="let split of expenseSplits">
             <div class="cart-item">
                 <div class="cart-item-info">
-                    <h4 [ngClass]="{'green-amount': split.user.id === paidByUser.id,'red-amount': split.user.id !== paidByUser.id}">
+                    <h4 [ngClass]="{'green-amount': split.paidByUserId === paidByUser.id,'red-amount': split.paidByUserId !== paidByUser.id}">
                       Amount: {{ split.amount }}
                     </h4>
-                    <p>Username: {{ split.user.name }}</p>
+                    <p>Username: {{ split.owedUser.name }}</p>
                 </div>
-                <div *ngIf="paidByUser.id != split.user.id" class="settle-btn">
-                  <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.user.id)">Settle</button>
+                <div *ngIf="split.owedUser.id != split.paidByUserId" class="settle-btn">
+                  <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.owedUser.id)">Settle</button>
               </div>
             </div>
         </div>

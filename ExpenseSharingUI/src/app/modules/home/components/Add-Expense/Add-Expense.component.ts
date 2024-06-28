@@ -35,12 +35,13 @@ export class AddExpenseComponent implements OnInit {
     groupId:'',
     paidByUserId:'',
     splitWithUserIds:[],
-    user: {
+    owedUser: {
       id:'',
       name:'',
       email:'',
       password:''
-    }
+    },
+    //owedUser : []
   }
   constructor(private groupService : GroupService, private activatedRoute : ActivatedRoute, private expenseService : ExpenseService, private toast : NgToastService, private router : Router) { 
    
@@ -64,7 +65,9 @@ export class AddExpenseComponent implements OnInit {
     this.addExpenseGroup.splitWithUserIds = selectedItems;
     console.log(this.addExpenseGroup.splitWithUserIds);
   }
- 
+  getFilteredSplitWithUsers(): User[] {
+    return this.paidByUser.filter(user => user.id !== this.addExpenseGroup.paidByUserId);
+  }
 
   addExpense(){
   

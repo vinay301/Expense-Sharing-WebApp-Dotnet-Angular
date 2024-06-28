@@ -60,17 +60,12 @@
                                     <label for="paidBy" class="col-lg-12 col-sm-4 col-form-label">Split with</label>
                                     <div class="col-sm-12">
                                       <app-custom-multi-select
-                                        [options]="paidByUser"
+                                        [options]="getFilteredSplitWithUsers()"
                                         [selectedItems]="selectedUsers"
                                         (selectionChange)="onSelectionChange($event)">
                                       </app-custom-multi-select>
                                     </div>
                                   </div>
-                                  
-
-                              
-                                
-
                                   <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn">Save</button>
                         </form>
                       </div>

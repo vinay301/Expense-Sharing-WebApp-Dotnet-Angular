@@ -8,5 +8,6 @@ export interface ExpenseSplit{
     expenseSplits: Expense[];
     paidByUser:User;
     description:string,
-    date:Date
+    date:Date,
+    
 }
