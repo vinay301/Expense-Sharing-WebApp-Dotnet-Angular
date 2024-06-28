@@ -47,6 +47,15 @@ namespace ExpenseSharingWebApp.Mapper
                 // Mapping for ExpenseSplit
                 config.CreateMap<ExpenseSplit, ExpenseSplitDto>()
                     .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
+
+                //Mapping for expenseSplit response dto
+                config.CreateMap<ExpenseSplit, ExpenseSplitResponeDto>()
+            .ForMember(dest => dest.ExpenseId, opt => opt.MapFrom(src => src.ExpenseId))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Expense.Description))
+            .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Expense.Amount))
+            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Expense.Date))
+            .ForMember(dest => dest.PaidByUserId, opt => opt.MapFrom(src => src.Expense.PaidByUserId))
+            .ForMember(dest => dest.UserShare, opt => opt.MapFrom(src => src.Amount));
             });
             return mappingConfig;
         }

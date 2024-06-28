@@ -17,5 +17,7 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Interface
         Task UpdateUserBalanceAsync(UserBalance userBalance);
         Task DeleteExpenseAsync(string expenseId);
         Task UpdateExpenseAsync(Expense expense);
+        Task<List<Expense>> GetUserExpensesAsync(string groupId, string userId);
+        Task<IEnumerable<ExpenseSplit>> GetExpenseSplitsAsync(string userId, string groupId);
     }
 }

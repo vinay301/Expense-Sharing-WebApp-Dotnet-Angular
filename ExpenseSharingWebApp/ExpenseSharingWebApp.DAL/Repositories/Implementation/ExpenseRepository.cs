@@ -45,13 +45,24 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
 
         public async Task DeleteExpenseAsync(string expenseId)
         {
-            var expenseToBeDeleted = await GetExpenseByIdAsync(expenseId);
-            if(expenseToBeDeleted != null)
-            {
-                _expenseSharingDbContext.Expenses.Remove(expenseToBeDeleted);
-                await _expenseSharingDbContext.SaveChangesAsync();
+            var expense = await _expenseSharingDbContext.Expenses
+                                    .Include(e => e.ExpenseSplits)
+                                    .Include(e => e.SplitAmong)
+                                    .FirstOrDefaultAsync(e => e.Id == expenseId);
 
+            if (expense != null)
+            {
+                _expenseSharingDbContext.ExpenseSplits.RemoveRange(expense.ExpenseSplits);
+                _expenseSharingDbContext.Expenses.Remove(expense);
+                await _expenseSharingDbContext.SaveChangesAsync();
             }
+            //var expenseToBeDeleted = await GetExpenseByIdAsync(expenseId);
+            //if(expenseToBeDeleted != null)
+            //{
+            //    _expenseSharingDbContext.Expenses.Remove(expenseToBeDeleted);
+            //    await _expenseSharingDbContext.SaveChangesAsync();
+
+            //}
         }
 
         public async Task CreateUserBalanceAsync(UserBalance userBalance)
@@ -76,7 +87,7 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             //    _expenseSharingDbContext.UserBalances.Add(userBalance);
             //}
             //else
-            //{e
+            //{
             //    _expenseSharingDbContext.UserBalances.Update(userBalance);
             //}
             _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
@@ -89,6 +100,23 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             _expenseSharingDbContext.Expenses.Update(expense);
             await _expenseSharingDbContext.SaveChangesAsync();
 
+        }
+
+        public async Task<List<Expense>> GetUserExpensesAsync(string groupId, string userId)
+        {
+            return await _expenseSharingDbContext.Expenses
+                .Include(e => e.PaidByUser)
+                .Include(e => e.SplitAmong)
+                .Where(e => e.GroupId == groupId && e.SplitAmong.Any(u => u.Id == userId))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExpenseSplit>> GetExpenseSplitsAsync(string userId, string groupId)
+        {
+            return await _expenseSharingDbContext.ExpenseSplits
+                .Include(es => es.Expense)
+                .Where(es => es.UserId == userId && es.Expense.GroupId == groupId)
+                .ToListAsync();
         }
 
     }

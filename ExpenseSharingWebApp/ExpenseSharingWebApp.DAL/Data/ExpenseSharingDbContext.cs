@@ -91,13 +91,13 @@ namespace ExpenseSharingWebApp.DAL.Data
                 .HasOne(es => es.User)
                 .WithMany(u => u.ExpenseSplits)
                 .HasForeignKey(es => es.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ExpenseSplit>()
                 .HasOne(es => es.Expense)
                 .WithMany(e => e.ExpenseSplits)
                 .HasForeignKey(es => es.ExpenseId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             //User Balance
             modelBuilder.Entity<UserBalance>()

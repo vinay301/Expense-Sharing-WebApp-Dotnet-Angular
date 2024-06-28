@@ -237,5 +237,16 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
 
             return balances;
         }
+
+        public async Task<List<ExpenseResponseDto>> GetUserExpensesAsync(string groupId, string userId)
+        {
+            var expenses = await _expenseRepository.GetUserExpensesAsync(groupId, userId);
+            return _mapper.Map<List<ExpenseResponseDto>>(expenses);
+        }
+        public async Task<IEnumerable<ExpenseSplitResponeDto>> GetExpenseSplitsAsync(string userId, string groupId)
+        {
+            var expenseSplits = await _expenseRepository.GetExpenseSplitsAsync(userId, groupId);
+            return _mapper.Map<IEnumerable<ExpenseSplitResponeDto>>(expenseSplits);
+        }
     }
 }

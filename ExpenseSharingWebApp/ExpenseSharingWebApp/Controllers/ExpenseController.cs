@@ -56,18 +56,66 @@ namespace ExpenseSharingWebApp.Controllers
             return Ok();
         }
 
-        [HttpPost("SettleExpense")]
-        public async Task<IActionResult> SettleExpense([FromBody] SettleExpenseRequestDto settleExpenseRequestDto)
+        [HttpPost("SettleExpense/{expenseId}/{settledByUserId}")]
+        public async Task<IActionResult> SettleExpense(string expenseId, string settledByUserId)
         {
+            var settleExpenseRequestDto = new SettleExpenseRequestDto
+            {
+                ExpenseId = expenseId,
+                SettledByUserId = settledByUserId
+            };
+
             await _expenseService.SettleExpenseAsync(settleExpenseRequestDto);
             return Ok();
         }
 
-        [HttpGet("group/{groupId}/balances")]
+        [HttpGet("group/balances/{groupId}")]
         public async Task<IActionResult> GetGroupBalances(string groupId)
         {
             var result = await _expenseService.GetGroupBalancesAsync(groupId);
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("UserExpenses/{groupId}/{userId}")]
+        public async Task<IActionResult> GetUserExpenses(string groupId, string userId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(groupId) || string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("Group Id and User Id cannot be null or empty.");
+                }
+
+                var expenses = await _expenseService.GetUserExpensesAsync(groupId, userId);
+                return Ok(expenses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details here as per your logging strategy
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("GetExpenseSplits/{userId}/{groupId}")]
+        public async Task<IActionResult> GetExpenseSplits(string userId, string groupId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(groupId))
+                {
+                    return BadRequest("User Id and Group Id cannot be null or empty.");
+                }
+
+                var expenseSplits = await _expenseService.GetExpenseSplitsAsync(userId, groupId);
+                return Ok(expenseSplits);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details here as per your logging strategy
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
     }

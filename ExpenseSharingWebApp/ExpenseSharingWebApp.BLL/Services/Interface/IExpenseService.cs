@@ -17,5 +17,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Interface
         Task UpdateExpenseAsync(string expenseId, UpdateExpenseRequestDto updateExpenseRequestDto);
         Task SettleExpenseAsync(SettleExpenseRequestDto settleExpenseRequestDto);
         Task<Dictionary<string, decimal>> GetGroupBalancesAsync(string groupId);
+        Task<List<ExpenseResponseDto>> GetUserExpensesAsync(string groupId, string userId);
+        Task<IEnumerable<ExpenseSplitResponeDto>> GetExpenseSplitsAsync(string userId, string groupId);
     }
 }
