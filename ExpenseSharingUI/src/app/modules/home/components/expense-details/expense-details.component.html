@@ -1,0 +1,37 @@
+<div class="expense-details">
+  <h1>Expense Details</h1>
+
+  <div class="expense-info">
+    <h2>General Information</h2>
+    <p><strong>Description:</strong> {{ expenseDetails.description}}</p>
+    <p><strong>Amount:</strong> {{ expenseDetails.amount| currency:'INR' }}</p>
+    <p><strong>Date:</strong> {{ expenseDetails.date | date:'dd-MM-yyyy' }}</p>
+  </div>
+
+  <div class="paid-by-user">
+    <h2>Paid By</h2>
+    <p><strong>Name:</strong> {{ paidByUser.name }}</p>
+    <p><strong>Email:</strong> {{ paidByUser.email }}</p>
+  </div>
+
+  <div class="container" id="cartBgId">
+    <h2>Expense Splits</h2>
+    <div class="cart">
+        <div class="cart-items"  *ngFor="let split of expenseSplits">
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4 [ngClass]="{'green-amount': split.user.id === paidByUser.id,'red-amount': split.user.id !== paidByUser.id}">
+                      Amount: {{ split.amount }}
+                    </h4>
+                    <p>Username: {{ split.user.name }}</p>
+                </div>
+                <div *ngIf="paidByUser.id != split.user.id" class="settle-btn">
+                  <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.user.id)">Settle</button>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+

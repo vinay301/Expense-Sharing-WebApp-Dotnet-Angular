@@ -35,6 +35,12 @@ export class AddExpenseComponent implements OnInit {
     groupId:'',
     paidByUserId:'',
     splitWithUserIds:[],
+    user: {
+      id:'',
+      name:'',
+      email:'',
+      password:''
+    }
   }
   constructor(private groupService : GroupService, private activatedRoute : ActivatedRoute, private expenseService : ExpenseService, private toast : NgToastService, private router : Router) { 
    

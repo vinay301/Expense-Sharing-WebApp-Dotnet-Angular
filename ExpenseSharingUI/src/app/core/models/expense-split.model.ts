@@ -6,4 +6,7 @@ export interface ExpenseSplit{
     user : User[];
     amount: number;
     expenseSplits: Expense[];
+    paidByUser:User;
+    description:string,
+    date:Date
 }

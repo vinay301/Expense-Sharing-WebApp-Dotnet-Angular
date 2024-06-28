@@ -175,4 +175,12 @@ a{
     margin-top: 10px;
 }
 
+.positive {
+    color: green;
+  }
+  
+  .negative {
+    color: red;
+  }
+
   

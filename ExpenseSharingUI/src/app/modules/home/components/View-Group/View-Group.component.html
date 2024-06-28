@@ -49,6 +49,9 @@
                   <div class="order-date d-inline-flex">
                       <p class="text-muted px-4">{{ expense.date | date: 'dd-MM-yyyy' }}</p>
                   </div>
+                  <div class="cart-buttons">
+                    <button class="rounded-pill px-2 py-1 text-white" [routerLink]="['/','expense-detail', expense.id]">More Details</button>
+                </div>
               </div>
           </div>
       </div>
@@ -56,7 +59,9 @@
 </section>
 
 <div *ngFor="let userId of getUserIds()">
-  User ID: {{ userId }} - Balance: {{ balances[userId] | currency:'INR' }}
+  User ID: {{ userId }} - Balance: <span [ngClass]="{'positive': balances[userId] > 0, 'negative': balances[userId] < 0}">
+  {{ balances[userId] | currency:'INR' }}
+  </span>
 </div>
 
 

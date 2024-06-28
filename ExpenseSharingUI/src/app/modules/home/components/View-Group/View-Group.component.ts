@@ -22,6 +22,8 @@ export class ViewGroupComponent implements OnInit {
   balances: { [key: string]: number } = {};
   loggedInUserId : string = '';
 
+  userIds: string[] = [];
+
   randomExpenseImages = [
    'https://img.freepik.com/free-vector/bill-analysis-concept-illustration_114360-19348.jpg?t=st=1719413624~exp=1719417224~hmac=123e6b963c2bbc7cb56646dc8718bb58f5879438752aa38e70cbe7e7066f2e06&w=740',
    'https://img.freepik.com/free-vector/manage-money-concept-illustration_114360-8079.jpg?t=st=1719413659~exp=1719417259~hmac=18b0c8e81b1f5d326eff38f708154343a1120e8bc1b0785b4ddde31b74f9537b&w=740',
@@ -43,9 +45,15 @@ export class ViewGroupComponent implements OnInit {
         // console.log("members:", result.userGroups)
         // Extract users from userGroups
         this.members = result.userGroups.map((userGroup: any) => userGroup.user);
-        this.expenses = result.expenses;
-        console.warn(result)
+        //this.expenses = result.expenses;
+        //console.warn(result)
       }  
+    )
+    groupId && this.expenseService.getAllExpensesOfGroup(groupId).subscribe(
+      (result : Expense[]) => {
+        this.expenses = result;
+        console.log(this.expenses)
+      }
     )
     groupId && this.calculateTotalExpenses(groupId);
   }
@@ -60,13 +68,16 @@ export class ViewGroupComponent implements OnInit {
   loadGroupBalance(groupId:string){
     this.expenseService.getGroupBalanceByGroupId(groupId).subscribe((res) => {
       this.balances = res;
-      console.log("GroupBalance:",this.balances);
+      //console.log("GroupBalance:",this.balances);
+      this.userIds = Object.keys(this.balances);
+      //console.log("User IDs:", this.userIds);
     })
   }
 
   getUserIds(): string[] {
     //return Object.keys(this.balances);
-    return Object.keys(this.balances).filter(id => id === this.loggedInUserId);
+    return this.userIds.filter(id => id == this.loggedInUserId);
+    //return Object.keys(this.balances).filter(id => id === this.loggedInUserId);
   }
 
   getRandomExpenseImage(): string {

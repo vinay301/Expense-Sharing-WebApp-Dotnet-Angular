@@ -29,4 +29,8 @@ getGroupBalanceByGroupId(groupId:string) : Observable<{ [key: string]: number }>
   return this.http.get<{ [key: string]: number }>(this.baseApiUrl + `/api/Expenses/group/balances/${groupId}`);
 }
 
+settleExpense(expenseId:string, settledByUserId:string) : Observable<ExpenseSplit>{
+  return this.http.post<ExpenseSplit>(this.baseApiUrl + `/api/Expenses/SettleExpense/${expenseId}/${settledByUserId}`,{})
+}
+
 }

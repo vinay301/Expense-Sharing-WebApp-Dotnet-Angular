@@ -60,7 +60,6 @@ export class AllExpensesComponent implements OnInit {
 
 
   toggleExpenseDetails(expenses: Expense) {
-    console.log('hi')
     expenses.showDetails = !expenses.showDetails;
     this.loadExpenseSplits(expenses);
   }

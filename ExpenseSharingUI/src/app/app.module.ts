@@ -23,6 +23,7 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CustomMultiSelectComponent } from './shared/components/custom-multi-select/custom-multi-select.component';
+import { ExpenseDetailsComponent } from './modules/home/components/expense-details/expense-details.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CustomMultiSelectComponent } from './shared/components/custom-multi-sel
     AllExpensesComponent,
     AddExpenseComponent,
     GroupMembersComponent,
-    CustomMultiSelectComponent
+    CustomMultiSelectComponent,
+    ExpenseDetailsComponent
   ],
   imports: [
     BrowserModule,
