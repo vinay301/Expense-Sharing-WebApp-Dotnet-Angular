@@ -15,6 +15,6 @@ namespace ExpenseSharingWebApp.DAL.Models.DTO.Response
         public UserDto PaidByUser { get; set; }
         public bool IsSettled { get; set; }
         public string GroupId { get; set; }
-        public ICollection<ExpenseSplitDto> ExpenseSplits { get; set; }
+        public ICollection<ExpenseSplitResponeDto> ExpenseSplits { get; set; }
     }
 }

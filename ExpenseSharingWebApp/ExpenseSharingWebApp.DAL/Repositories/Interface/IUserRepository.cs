@@ -11,6 +11,7 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Interface
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(string id);
     }
 
 }

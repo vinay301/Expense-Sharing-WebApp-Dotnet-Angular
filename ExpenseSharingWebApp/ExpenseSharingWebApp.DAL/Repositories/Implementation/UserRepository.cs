@@ -24,5 +24,9 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
         {
             return await _expenseSharingDbContext.Users.ToListAsync();
         }
+        public async Task<User> GetUserByIdAsync(string id)
+        {
+            return await _expenseSharingDbContext.Users.FindAsync(id);
+        }
     }
 }

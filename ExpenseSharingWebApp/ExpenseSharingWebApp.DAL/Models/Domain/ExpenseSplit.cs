@@ -13,8 +13,9 @@ namespace ExpenseSharingWebApp.DAL.Models.Domain
         public User User { get; set; }
         public string ExpenseId { get; set; }
         public Expense Expense { get; set; }
-        public decimal Amount { get; set; }
-
+        //public decimal Amount { get; set; }
+        public string PaidToUserId { get; set; }
+        public bool IsSettled { get; set; }
         public decimal AmountPaid { get; set; }
         public decimal AmountOwed { get; set; }
     }

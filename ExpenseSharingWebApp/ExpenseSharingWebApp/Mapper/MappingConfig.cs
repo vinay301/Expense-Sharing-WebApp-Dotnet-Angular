@@ -44,18 +44,29 @@ namespace ExpenseSharingWebApp.Mapper
                     .ForMember(dest => dest.PaidByUser, opt => opt.MapFrom(src => src.PaidByUser))
                     .ForMember(dest => dest.ExpenseSplits, opt => opt.MapFrom(src => src.ExpenseSplits));
 
+
                 // Mapping for ExpenseSplit
                 config.CreateMap<ExpenseSplit, ExpenseSplitDto>()
                     .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
 
                 //Mapping for expenseSplit response dto
+                //config.CreateMap<ExpenseSplit, ExpenseSplitResponeDto>()
+                //.ForMember(dest => dest.ExpenseId, opt => opt.MapFrom(src => src.ExpenseId))
+                //.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Expense.Description))
+                //.ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Expense.Amount))
+                //.ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Expense.Date))
+                //.ForMember(dest => dest.PaidByUserId, opt => opt.MapFrom(src => src.Expense.PaidByUserId))
+                //.ForMember(dest => dest.UserShare, opt => opt.MapFrom(src => src.Amount));
                 config.CreateMap<ExpenseSplit, ExpenseSplitResponeDto>()
-            .ForMember(dest => dest.ExpenseId, opt => opt.MapFrom(src => src.ExpenseId))
-            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Expense.Description))
-            .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Expense.Amount))
-            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Expense.Date))
-            .ForMember(dest => dest.PaidByUserId, opt => opt.MapFrom(src => src.Expense.PaidByUserId))
-            .ForMember(dest => dest.UserShare, opt => opt.MapFrom(src => src.Amount));
+                .ForMember(dest => dest.ExpenseId, opt => opt.MapFrom(src => src.ExpenseId))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Expense.Description))
+                .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.Expense.Amount))
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Expense.Date))
+                .ForMember(dest => dest.PaidByUserId, opt => opt.MapFrom(src => src.Expense.PaidByUserId))
+                .ForMember(dest => dest.UserShare, opt => opt.MapFrom(src => src.AmountOwed))
+                .ForMember(dest => dest.AmountPaid, opt => opt.MapFrom(src => src.AmountPaid))
+                .ForMember(dest => dest.AmountOwed, opt => opt.MapFrom(src => src.AmountOwed));
+
             });
             return mappingConfig;
         }
