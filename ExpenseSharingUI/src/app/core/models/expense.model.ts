@@ -13,4 +13,7 @@ export interface Expense {
     splitWithUserIds : string[], //payeeId's -> among which the expense is splitted
     owedUser : User //This is used at the time of expenseSplit to fetch the details of splitted Users
     //owedUser : User[]
+    amountOwed:any;
+    amountPaid:any;
+    isSettled : boolean //to check particular expense to be settled
 }

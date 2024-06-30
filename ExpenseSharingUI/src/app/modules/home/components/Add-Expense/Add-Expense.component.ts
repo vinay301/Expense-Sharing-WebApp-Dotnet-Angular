@@ -41,6 +41,9 @@ export class AddExpenseComponent implements OnInit {
       email:'',
       password:''
     },
+    amountOwed:'',
+    amountPaid:'',
+    isSettled : false
     //owedUser : []
   }
   constructor(private groupService : GroupService, private activatedRoute : ActivatedRoute, private expenseService : ExpenseService, private toast : NgToastService, private router : Router) { 

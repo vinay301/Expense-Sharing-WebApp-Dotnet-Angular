@@ -21,13 +21,17 @@
             <div class="cart-item">
                 <div class="cart-item-info">
                     <h4 [ngClass]="{'green-amount': split.paidByUserId === paidByUser.id,'red-amount': split.paidByUserId !== paidByUser.id}">
-                      Amount: {{ split.amount }}
+                      Amount: {{ split.amountOwed }} 
                     </h4>
+                    
                     <p>Username: {{ split.owedUser.name }}</p>
                 </div>
-                <div *ngIf="split.owedUser.id != split.paidByUserId" class="settle-btn">
+                <div *ngIf="split.owedUser.id != split.paidByUserId && !split.isSettled" class="settle-btn">
                   <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.owedUser.id)">Settle</button>
-              </div>
+                </div>
+                <div>
+                  <span *ngIf="split.isSettled">Already Paid &#9989;</span>
+                </div>
             </div>
         </div>
     </div>

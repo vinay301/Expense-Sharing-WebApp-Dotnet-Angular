@@ -47,6 +47,7 @@ export class ExpenseDetailsComponent implements OnInit {
       this.expenseService.settleExpense(this.expenseDetails.id, splittedUserId).subscribe(
         response => {
           this.toast.success("Expense settled successfully!", "SUCCESS", 5000)
+          window.location.reload();
         },
         error => {
           console.error("Error settling expense:", error);

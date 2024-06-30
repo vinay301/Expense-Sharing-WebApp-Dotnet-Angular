@@ -58,10 +58,6 @@
   </div>
 </section>
 
-<div *ngFor="let userId of getUserIds()">
-  User ID: {{ userId }} - Balance: <span [ngClass]="{'positive': balances[userId] > 0, 'negative': balances[userId] < 0}">
-  {{ balances[userId] | currency:'INR' }}
-  </span>
-</div>
+
 
 
