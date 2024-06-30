@@ -46,6 +46,8 @@ export class AddExpenseComponent implements OnInit {
     isSettled : false
     //owedUser : []
   }
+
+  showError = false;
   constructor(private groupService : GroupService, private activatedRoute : ActivatedRoute, private expenseService : ExpenseService, private toast : NgToastService, private router : Router) { 
    
   }
@@ -64,6 +66,9 @@ export class AddExpenseComponent implements OnInit {
     
   }
 
+  onDropdownClick() {
+    this.showError = true;
+  }
   onSelectionChange(selectedItems: string[]) {
     this.addExpenseGroup.splitWithUserIds = selectedItems;
     console.log(this.addExpenseGroup.splitWithUserIds);

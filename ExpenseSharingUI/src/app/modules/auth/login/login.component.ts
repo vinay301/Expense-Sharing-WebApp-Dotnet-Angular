@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     this.showRegisterForm = !this.showRegisterForm;
   }
   ngOnInit() {
+    console.log(this.loginForm)
     this.loginForm = this.fb.group({
       username : ['',Validators.required],
       password : ['',Validators.required]
@@ -31,13 +32,11 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid)
       {
         console.log(this.loginForm.value);
-        //send obj to Db
         this.authService.login(this.loginForm.value).subscribe({
           next : (res => {
             const token = res.result.token;
             this.loginForm.reset();
             this.authService.storeToken(token);
-            //this.authService.storeRefreshToken(res.refreshToken);
             const tokenPayload = this.authService.decryptToken();
             this.userStore.setUsernameForStore(tokenPayload.unique_name);
             this.userStore.setRoleForStore(tokenPayload.role);
@@ -59,8 +58,8 @@ export class LoginComponent implements OnInit {
         console.log("Form is not valid");
         //Throw error using toastr and with required fields
         ValidateForm.validateAllFormFields(this.loginForm);
-        alert("Your Form is invalid");
-        //this.toast.error({detail:"ERROR",summary:"Your Form is Invalid",sticky:true});
+        //alert("Your Form is invalid");
+        this.toast.danger("ERROR","Your Form is Invalid",5000);
       }
   }
 

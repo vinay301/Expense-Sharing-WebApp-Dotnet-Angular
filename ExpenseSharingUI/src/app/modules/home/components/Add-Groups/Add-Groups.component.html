@@ -23,13 +23,14 @@
 
                       <div class="col-md-7 col-sm-12 col-xs-12 px-5 pb-5">
                           <div class="row">
-                              <form class="px-3 pb-2" (ngSubmit)="createGroup()" #form = "ngForm" autocomplete="off">
+                              <form class="px-3 pb-2" (ngSubmit)="createGroup()" #form ="ngForm" autocomplete="off">
                                       <div class="form-group row col-12">
                                         <label for="groupName" class="col-lg-12 col-sm-4 col-form-label">Name</label>
                                         <div class="col-sm-12">
                                         <!--creating a template variable (groupName) and pass NgModel as refernce to this variable-->
                                           <input type="text" class="form-control " id="groupName" placeholder="Enter Group Name"
-                                          [(ngModel)]="addGroupRequest.name" name="name">                    
+                                          [(ngModel)]="addGroupRequest.name" name="name" required #name="ngModel" minlength="4">  
+                                          <small *ngIf="name.invalid && name.touched" class="text-danger">*Group name is required</small>                 
                                         </div>
                                       </div> 
 
@@ -37,20 +38,11 @@
                                         <label for="groupDesc" class="col-lg-12 col-sm-4 col-form-label">Description</label>
                                         <div class="col-sm-12">
                                           <textarea [rows]="3" cols="4" type="text" class="form-control " id="groupDesc" placeholder="Enter Group Description"
-                                          [(ngModel)]="addGroupRequest.description" name="description">    
-                                          </textarea>                
+                                          [(ngModel)]="addGroupRequest.description" name="description" #description="ngModel" required>    
+                                          </textarea>   
+                                          <small *ngIf="description.invalid && description.touched" class="text-danger">*Description is required</small>               
                                         </div>
                                       </div> 
-
-                                      <!-- <div class="form-group row col-12">
-                                        <label for="groupDesc" class="col-lg-12 col-sm-4 col-form-label">Members</label>
-                                        <div class="col-sm-12" >
-                                          <select name="members" id="">
-                                            <option value="" disabled selected>Select Members</option>
-                                            <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
-                                          </select>
-                                        </div>
-                                      </div>  -->
 
                                       <div class="form-group row col-12">
                                         <ng-multiselect-dropdown
@@ -59,16 +51,20 @@
                                         [data]="users"
                                         [(ngModel)]="selectedUsers"
                                         name="members"
+                                        (click)="onDropdownClick()"
                                         (onSelect)="onItemSelect($event)"
                                         (onDeSelect)="onItemDeselect($event)"
                                         (onSelectAll)="onSelectAll($event)"
                                         (onDeSelectAll)="onDeselectAll($event)"
+                                        #members="ngModel"
+                                        required
                                       >
                                       </ng-multiselect-dropdown>
+                                      <small *ngIf="showError && members.invalid" class="text-danger">*Select Group Members</small>               
                                       </div>
                                     
 
-                                      <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn">Save</button>
+                                      <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn" [disabled]="!form.valid">Save</button>
                             </form>
                           </div>
                       </div>

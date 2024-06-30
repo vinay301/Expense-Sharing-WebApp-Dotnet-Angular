@@ -30,6 +30,8 @@ export class AddGroupsComponent implements OnInit {
     userGroups:[],
     expenses:[]
   }
+
+  showError = false;
   constructor(private userService : UserService, private groupService:GroupService, private toast : NgToastService, private router : Router) { }
 
   ngOnInit() {
@@ -51,23 +53,32 @@ export class AddGroupsComponent implements OnInit {
     })
   }
 
+  onDropdownClick() {
+    this.showError = true;
+  }
   onItemSelect(item: any) {
     this.addGroupRequest.memberIds.push(item.id);
+    this.showError = false;
     console.log(this.addGroupRequest.memberIds);
   }
 
   onSelectAll(items: any) {
     this.addGroupRequest.memberIds = items.map((item: User) => item.id);
+    this.showError = false;
     console.log(this.addGroupRequest.memberIds);
   }
 
   onItemDeselect(item: any) {
     this.addGroupRequest.memberIds = this.addGroupRequest.memberIds.filter(id => id !== item.id);
+    if(this.selectedUsers.length == 0) {
+      this.showError = true;
+    }
     console.log(this.addGroupRequest.memberIds);
   }
 
   onDeselectAll(items:any) {
     this.addGroupRequest.memberIds = [];
+    this.showError = true;
     console.log(this.addGroupRequest.memberIds);
   }
 

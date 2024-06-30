@@ -4,9 +4,6 @@
           <div class="card d-flex mx-auto my-3">
               <div class="row">
                   <div class="col-md-5 col-sm-12 col-xs-12 left-grid p-5">
-                      <!-- <div class="row mb-5 m-3"> 
-                        <img src="../../../../../assets/images/addGroup.png" class="image" alt="" />
-                      </div>  -->
                       <div class="row justify-content-center">
                           <div class="w-75 mx-md-5 mx-1 mx-sm-2 mb-5 mt-4 px-sm-5 px-md-2 px-xl-1 px-2">
                               <h1 class="wlcm">Add Expense</h1> 
@@ -29,7 +26,8 @@
                                     <div class="col-sm-12">
                                     <!--creating a template variable (groupName) and pass NgModel as refernce to this variable-->
                                       <input type="number" class="form-control " id="expenseAmount" placeholder="Enter Amount"
-                                      [(ngModel)] = "addExpenseGroup.amount" name="amount">                    
+                                      [(ngModel)] = "addExpenseGroup.amount" name="amount" #amount="ngModel" required>        
+                                      <span *ngIf="amount.invalid && amount.touched" class="text-danger">*Amount is required</span>            
                                     </div>
                                   </div> 
 
@@ -37,24 +35,22 @@
                                     <label for="expenseDesc" class="col-lg-12 col-sm-4 col-form-label">Description</label>
                                     <div class="col-sm-12">
                                       <textarea [rows]="3" cols="4" type="text" class="form-control " id="groupDesc" placeholder="Enter Expense Description"
-                                      [(ngModel)]="addExpenseGroup.description" name="description">    
-                                      </textarea>                
+                                      [(ngModel)]="addExpenseGroup.description" name="description" #description="ngModel" required>    
+                                      </textarea>     
+                                      <span *ngIf="description.invalid && description.touched" class="text-danger">*Description is required</span>            
                                     </div>
                                   </div> 
-
-                                
 
                                   <div class="form-group row col-12">
                                     <label for="paidBy" class="col-lg-12 col-sm-4 col-form-label">Paid By</label>
                                     <div class="col-sm-12">
-                                      <select [(ngModel)]="addExpenseGroup.paidByUserId" name="paidByUserId" class="form-control">
+                                      <select [(ngModel)]="addExpenseGroup.paidByUserId" name="paidByUserId" class="form-control" #paidByUserId="ngModel" required>
                                         <option value="" disabled selected>Select Members</option>
                                         <option *ngFor="let paidBy of paidByUser" [value]="paidBy.id">{{paidBy.name}}</option>
-                                        <!-- <option value="">Member 2</option> -->
                                       </select>
+                                      <span *ngIf="paidByUserId.invalid && paidByUserId.touched" class="text-danger">*Select user who pay's the expense</span>
                                     </div>
                                   </div> 
-
                                
                                   <div class="form-group row col-12">
                                     <label for="paidBy" class="col-lg-12 col-sm-4 col-form-label">Split with</label>
@@ -62,11 +58,18 @@
                                       <app-custom-multi-select
                                         [options]="getFilteredSplitWithUsers()"
                                         [selectedItems]="selectedUsers"
-                                        (selectionChange)="onSelectionChange($event)">
+                                        (selectionChange)="onSelectionChange($event)"
+                                        [(ngModel)]="selectedUsers"
+                                        required
+                                        #splitWith="ngModel"
+                                        name="splitWith"
+                                        (click)="onDropdownClick()"
+                                        >
                                       </app-custom-multi-select>
+                                      <small *ngIf="splitWith.invalid && (splitWith.touched || form.submitted)" class="text-danger">*Select Group Members</small>
                                     </div>
                                   </div>
-                                  <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn">Save</button>
+                                  <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn" [disabled]="!form.valid">Save</button>
                         </form>
                       </div>
                   </div>

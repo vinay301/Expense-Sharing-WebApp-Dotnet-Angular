@@ -13,7 +13,7 @@
             </div>
     
             <div class="actual-form">
-              <div class="input-wrap">
+              <div class="input-wrap" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required','username')">
                 <input
                   type="text"
                   minlength="4"
@@ -25,8 +25,8 @@
                   formControlName="username"
                 />
               </div>
-    
-              <div class="input-wrap">
+              <small *ngIf="(loginForm.controls['username'].invalid && loginForm.touched)" class="text-danger">*Username is required</small>
+              <div class="input-wrap" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
                 <input
                   type="password"
                   minlength="4"
@@ -38,7 +38,7 @@
                   formControlName="password"
                 />
               </div>
-    
+              <small *ngIf="(loginForm.controls['password'].invalid && loginForm.touched)" class="text-danger">*Password is required</small>
               <input type="submit" value="Login" class="sign-btn" (click)="onLogin()"/>
               <input type="button" (click)="toggleForm()" value="Register" class="sign-btn" />
               <small>*Don't have an account? Register first!</small>
