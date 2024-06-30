@@ -17,5 +17,6 @@ namespace ExpenseSharingWebApp.DAL.Models.DTO.Response
         public decimal AmountPaid { get; set; }
         public decimal AmountOwed { get; set; }
         public UserDto OwedUser { get; set; }
+        public bool IsSettled { get; set; }
     }
 }

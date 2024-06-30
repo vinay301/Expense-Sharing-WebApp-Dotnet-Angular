@@ -4,6 +4,7 @@ using ExpenseSharingWebApp.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseSharingWebApp.DAL.Migrations
 {
     [DbContext(typeof(ExpenseSharingDbContext))]
-    partial class ExpenseSharingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240629054858_UpdatingUserBalanceTable")]
+    partial class UpdatingUserBalanceTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,173 +322,37 @@ namespace ExpenseSharingWebApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "93dd512a-603d-425d-9b0c-b7180b054163",
+                            Id = "9a432b32-e146-4a88-8620-a428f88dfea0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c639ef07-a55d-45b0-8130-84574b531920",
+                            ConcurrencyStamp = "aca6d413-3863-406d-b8e7-62d0e8bf93b8",
                             Email = "admin@expense.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@EXPENSE.COM",
                             NormalizedUserName = "ADMIN@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF2IzMsoBA9nbeVonAIxvE60T73W1HO0/TtJwYCb6s8dEzFCRKWZlKfoeGes5jnMvw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOfL/7FA662Z24qPS7LjrJNUWTR3Fij+FKglgvjhu0WkUI0ELmqgcnE1Gv8yiqcmiQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d96d7a33-dfa5-41bb-bde8-3510142ba939",
+                            SecurityStamp = "a2f29044-e1a2-4586-9198-fe10a10b4882",
                             TwoFactorEnabled = false,
                             UserName = "admin@expense.com"
                         },
                         new
                         {
-                            Id = "f6fc62d8-ff1f-40a1-8c00-595fc5ac4b02",
+                            Id = "35677dd4-45c9-47a9-8390-439d36192434",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03a90066-3a71-4f9d-8da1-c168be9c3d8b",
+                            ConcurrencyStamp = "4b23948c-612b-4d19-9975-77b10ff23458",
                             Email = "user@expense.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "User",
                             NormalizedEmail = "USER@EXPENSE.COM",
                             NormalizedUserName = "USER@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA+yBcwECMsQ1ZRj601sAAooi8aVwf2dEs0AkFHsEK3a6P3Vwgh3OT5nxsBTd0CyFg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG0lqyExUeHpWpi99/pLFZ5+va52ntk2amIjWayPWgQ2CRImged0eRKencKoXRHebw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ecf3029-532d-4398-a914-c96e45d90d37",
+                            SecurityStamp = "c69ef728-0b6e-4f4c-a6b7-f92cdc61d510",
                             TwoFactorEnabled = false,
                             UserName = "user@expense.com"
-                        },
-                        new
-                        {
-                            Id = "f5368239-3d17-4195-bb6b-606f7c5a70c3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ccbfcdb8-9327-42e5-9fc0-5eb8359f3156",
-                            Email = "user2@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User2",
-                            NormalizedEmail = "USER2@EXPENSE.COM",
-                            NormalizedUserName = "USER2@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN0CcfBrVd5qkCcKRrJ+bdOMpC2pxVY8dpjy84LcnGo0ooD3TOgbQO2zhP4t3d5SMQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "6cd7e1f2-48ea-45a7-94b9-e89052442ee4",
-                            TwoFactorEnabled = false,
-                            UserName = "user2@expense.com"
-                        },
-                        new
-                        {
-                            Id = "daecf59e-a22c-4851-9f0e-d087e0ae6d6d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e464bf3-310d-4c5a-b2b2-c2a1b1073191",
-                            Email = "user3@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User3",
-                            NormalizedEmail = "USER3@EXPENSE.COM",
-                            NormalizedUserName = "USER3@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENyzpys9mC1AFS/gnt4wxVbMffNO5bphEnPRMgG4npwAscub6yxupbon/kOPxx7LPw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1b6a57da-d5a9-4dcb-8979-b63519d52827",
-                            TwoFactorEnabled = false,
-                            UserName = "user3@expense.com"
-                        },
-                        new
-                        {
-                            Id = "e0d979ea-e393-444c-aaf1-03184175a857",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "aed86861-ba2e-4d96-9d24-b15914d5f88e",
-                            Email = "user4@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User4",
-                            NormalizedEmail = "USER4@EXPENSE.COM",
-                            NormalizedUserName = "USER4@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOKYoDTr0Mp3hbJzExWB8EJfWGYIcLAM1hlHGdVwIiUKY+IAJAemq6bZwxCAoQkYAw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "6aafcbee-0b4c-4d8c-8a90-2bf4b36bb3fe",
-                            TwoFactorEnabled = false,
-                            UserName = "user4@expense.com"
-                        },
-                        new
-                        {
-                            Id = "bc7000b9-8cbf-4129-9aa2-e7a7156def1b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b60fddeb-e86e-412d-a509-dde3c93d6425",
-                            Email = "user5@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User5",
-                            NormalizedEmail = "USER5@EXPENSE.COM",
-                            NormalizedUserName = "USER5@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJAfmpjQ0DZHECIA/3Zji1h+X+pkBdHB32OJc7ST2ZSiXyzg2PSJ8rGpvPIVSuXOpQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b77c294b-aedc-4e96-8127-525b77c123ce",
-                            TwoFactorEnabled = false,
-                            UserName = "user5@expense.com"
-                        },
-                        new
-                        {
-                            Id = "6aaecb55-2f49-408b-9802-017a935f5a4b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0a2824df-866b-4677-a3f3-7aadb90833a2",
-                            Email = "user6@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User6",
-                            NormalizedEmail = "USER6@EXPENSE.COM",
-                            NormalizedUserName = "USER6@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP8jiTYMwwEG3csgvAWICcG5XtehDFXtpHoPzmkIb9QWmjjoU+nB5tPnAm3tScMpcg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4a47a2a9-607c-4b11-9f00-dec5a9d49261",
-                            TwoFactorEnabled = false,
-                            UserName = "user6@expense.com"
-                        },
-                        new
-                        {
-                            Id = "2d421861-5a7a-47e9-a42a-82e290b54787",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c3a1b96-eb92-4971-b096-58dd53332717",
-                            Email = "user7@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User7",
-                            NormalizedEmail = "USER7@EXPENSE.COM",
-                            NormalizedUserName = "USER7@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBliMIuhly9kPTcZq3CBbZUfQ8NivbBRb/0HZ1T0VcgNyuHJp1bOtixeC65j14r4mQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b62653be-a8aa-4942-8427-393d2d14cf44",
-                            TwoFactorEnabled = false,
-                            UserName = "user7@expense.com"
-                        },
-                        new
-                        {
-                            Id = "6683d7b5-e6db-41d8-b824-9f571281fd93",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b066392-3a3b-494e-8d0a-9915ee48812b",
-                            Email = "user8@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User8",
-                            NormalizedEmail = "USER8@EXPENSE.COM",
-                            NormalizedUserName = "USER8@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFfDF5+Cp0DoKqrCE+AM5U22RAwb0tr6K9lwlOBGiCNu4kprCD6+Vl7vLhXrUADpOA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "488f1e9d-cad2-4093-8913-e8563c18cb8f",
-                            TwoFactorEnabled = false,
-                            UserName = "user8@expense.com"
-                        },
-                        new
-                        {
-                            Id = "c6695c36-d7b3-4b34-bea9-680c584c222f",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "48d8e08a-355b-49d6-a76d-d405bfd9ccc6",
-                            Email = "user9@expense.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "User9",
-                            NormalizedEmail = "USER9@EXPENSE.COM",
-                            NormalizedUserName = "USER9@EXPENSE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECGh66IljAcMbWqEMyWvNlQ+GCsXhbzEdlkbU5b4mE6laM6dWvtjBAmEtmBGX3hb4g==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3235cde8-a155-4a91-9283-2cd49861c057",
-                            TwoFactorEnabled = false,
-                            UserName = "user9@expense.com"
                         });
                 });
 
@@ -571,54 +438,6 @@ namespace ExpenseSharingWebApp.DAL.Migrations
                             Id = "2",
                             Name = "User",
                             NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            Name = "User2",
-                            NormalizedName = "USER2"
-                        },
-                        new
-                        {
-                            Id = "4",
-                            Name = "User3",
-                            NormalizedName = "USER3"
-                        },
-                        new
-                        {
-                            Id = "5",
-                            Name = "User4",
-                            NormalizedName = "USER4"
-                        },
-                        new
-                        {
-                            Id = "6",
-                            Name = "User5",
-                            NormalizedName = "USER5"
-                        },
-                        new
-                        {
-                            Id = "7",
-                            Name = "User6",
-                            NormalizedName = "USER6"
-                        },
-                        new
-                        {
-                            Id = "8",
-                            Name = "User7",
-                            NormalizedName = "USER7"
-                        },
-                        new
-                        {
-                            Id = "9",
-                            Name = "User8",
-                            NormalizedName = "USER8"
-                        },
-                        new
-                        {
-                            Id = "10",
-                            Name = "User9",
-                            NormalizedName = "USER9"
                         });
                 });
 
@@ -713,53 +532,13 @@ namespace ExpenseSharingWebApp.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "93dd512a-603d-425d-9b0c-b7180b054163",
+                            UserId = "9a432b32-e146-4a88-8620-a428f88dfea0",
                             RoleId = "1"
                         },
                         new
                         {
-                            UserId = "f6fc62d8-ff1f-40a1-8c00-595fc5ac4b02",
+                            UserId = "35677dd4-45c9-47a9-8390-439d36192434",
                             RoleId = "2"
-                        },
-                        new
-                        {
-                            UserId = "f5368239-3d17-4195-bb6b-606f7c5a70c3",
-                            RoleId = "3"
-                        },
-                        new
-                        {
-                            UserId = "daecf59e-a22c-4851-9f0e-d087e0ae6d6d",
-                            RoleId = "4"
-                        },
-                        new
-                        {
-                            UserId = "e0d979ea-e393-444c-aaf1-03184175a857",
-                            RoleId = "5"
-                        },
-                        new
-                        {
-                            UserId = "bc7000b9-8cbf-4129-9aa2-e7a7156def1b",
-                            RoleId = "6"
-                        },
-                        new
-                        {
-                            UserId = "6aaecb55-2f49-408b-9802-017a935f5a4b",
-                            RoleId = "7"
-                        },
-                        new
-                        {
-                            UserId = "2d421861-5a7a-47e9-a42a-82e290b54787",
-                            RoleId = "8"
-                        },
-                        new
-                        {
-                            UserId = "6683d7b5-e6db-41d8-b824-9f571281fd93",
-                            RoleId = "9"
-                        },
-                        new
-                        {
-                            UserId = "c6695c36-d7b3-4b34-bea9-680c584c222f",
-                            RoleId = "10"
                         });
                 });
 

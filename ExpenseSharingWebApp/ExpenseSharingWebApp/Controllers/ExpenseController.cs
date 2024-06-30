@@ -59,14 +59,30 @@ namespace ExpenseSharingWebApp.Controllers
         [HttpPost("SettleExpense/{expenseId}/{settledByUserId}")]
         public async Task<IActionResult> SettleExpense(string expenseId, string settledByUserId)
         {
-            var settleExpenseRequestDto = new SettleExpenseRequestDto
+            if (string.IsNullOrEmpty(expenseId) || string.IsNullOrEmpty(settledByUserId))
             {
-                ExpenseId = expenseId,
-                SettledByUserId = settledByUserId
-            };
+                return BadRequest("ExpenseId and SettledByUserId cannot be null or empty.");
+            }
 
-            await _expenseService.SettleExpenseAsync(settleExpenseRequestDto);
-            return Ok();
+            try
+            {
+                var settleExpenseRequestDto = new SettleExpenseRequestDto
+                {
+                    ExpenseId = expenseId,
+                    SettledByUserId = settledByUserId
+                };
+
+                await _expenseService.SettleExpenseAsync(settleExpenseRequestDto);
+
+                return Ok(new { message = "Expense settled successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (add your logging mechanism here)
+                Console.WriteLine($"Error occurred while settling expense: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+           
         }
 
         [HttpGet("group/balances/{groupId}")]

@@ -81,19 +81,38 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
 
         public async Task UpdateUserBalanceAsync(UserBalance userBalance)
         {
-            //if (string.IsNullOrEmpty(userBalance.Id))
-            //{
-            //    userBalance.Id = Guid.NewGuid().ToString();
-            //    _expenseSharingDbContext.UserBalances.Add(userBalance);
-            //}
-            //else
-            //{
-            //    _expenseSharingDbContext.UserBalances.Update(userBalance);
-            //}
-            _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
-            await _expenseSharingDbContext.SaveChangesAsync();
-            //await _expenseSharingDbContext.SaveChangesAsync(); //exception here
+            if (string.IsNullOrEmpty(userBalance.Id))
+            {
+                userBalance.Id = Guid.NewGuid().ToString();
+                _expenseSharingDbContext.UserBalances.Add(userBalance);
+            }
+            else
+            {
+                _expenseSharingDbContext.UserBalances.Update(userBalance);
+            }
+            //_expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
+            //await _expenseSharingDbContext.SaveChangesAsync();
+            await _expenseSharingDbContext.SaveChangesAsync(); 
         }
+
+        //public async Task UpdateUserBalanceAsync(UserBalance userBalance)
+        //{
+        //    try
+        //    {
+        //        _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
+        //        await _expenseSharingDbContext.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException ex)
+        //    {
+        //        Handle concurrency exception: retry or log the issue
+        //        Example of retry logic:
+        //        var entry = ex.Entries.Single();
+        //        await entry.ReloadAsync(); // Reload the entity from the database
+        //        _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
+        //        await _expenseSharingDbContext.SaveChangesAsync();
+        //    }
+        //}
+
 
         public async Task UpdateExpenseAsync(Expense expense)
         {

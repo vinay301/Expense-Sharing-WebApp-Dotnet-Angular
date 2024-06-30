@@ -14,6 +14,7 @@ namespace ExpenseSharingWebApp.DAL.Models.Domain
         public string GroupId { get; set; } // Foreign key for Group
         public Group Group { get; set; } // Navigation property for Group
         public decimal AmountOwed { get; set; } // Balance amount (positive means owed, negative means owes)
+        public decimal AmountPaid { get; set; }
         public bool IsSettled { get; set; } // Indicates if the balance is settled
     }
 }

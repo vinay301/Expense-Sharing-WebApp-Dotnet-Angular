@@ -1,4 +1,5 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options;
+using ExpenseSharingWebApp.DAL.Data.Seed;
 using ExpenseSharingWebApp.DAL.Models.Domain;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,10 @@ namespace ExpenseSharingWebApp.DAL.Data
 {
     public class ExpenseSharingDbContext : ApiAuthorizationDbContext<User>
     {
+        private Func<DbContextOptions<ExpenseSharingDbContext>> getRequiredService;
+
+
+
         public ExpenseSharingDbContext(DbContextOptions<ExpenseSharingDbContext> options, IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
@@ -29,8 +34,17 @@ namespace ExpenseSharingWebApp.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             var userID1 = Guid.NewGuid().ToString();
             var userID2 = Guid.NewGuid().ToString();
+            var userID3 = Guid.NewGuid().ToString();
+            var userID4 = Guid.NewGuid().ToString();
+            var userID5 = Guid.NewGuid().ToString();
+            var userID6 = Guid.NewGuid().ToString();
+            var userID7 = Guid.NewGuid().ToString();
+            var userID8 = Guid.NewGuid().ToString();
+            var userID9 = Guid.NewGuid().ToString();
+            var userID10 = Guid.NewGuid().ToString();
 
             var hasher = new PasswordHasher<User>();
 
@@ -54,17 +68,113 @@ namespace ExpenseSharingWebApp.DAL.Data
                        Email = "user@expense.com",
                        NormalizedEmail = "user@expense.com".ToUpper(),
                        PasswordHash = hasher.HashPassword(null, "User@123")
-                   }
+                   },
+                    new User
+                    {
+                        Name = "User2",
+                        UserName = "user2@expense.com",
+                        NormalizedUserName = "user2@expense.com".ToUpper(),
+                        Id = userID3,
+                        Email = "user2@expense.com",
+                        NormalizedEmail = "user2@expense.com".ToUpper(),
+                        PasswordHash = hasher.HashPassword(null, "User@123")
+                    },
+                     new User
+                     {
+                         Name = "User3",
+                         UserName = "user3@expense.com",
+                         NormalizedUserName = "user3@expense.com".ToUpper(),
+                         Id = userID4,
+                         Email = "user3@expense.com",
+                         NormalizedEmail = "user3@expense.com".ToUpper(),
+                         PasswordHash = hasher.HashPassword(null, "User@123")
+                     },
+                      new User
+                      {
+                          Name = "User4",
+                          UserName = "user4@expense.com",
+                          NormalizedUserName = "user4@expense.com".ToUpper(),
+                          Id = userID5,
+                          Email = "user4@expense.com",
+                          NormalizedEmail = "user4@expense.com".ToUpper(),
+                          PasswordHash = hasher.HashPassword(null, "User@123")
+                      },
+                       new User
+                       {
+                           Name = "User5",
+                           UserName = "user5@expense.com",
+                           NormalizedUserName = "user5@expense.com".ToUpper(),
+                           Id = userID6,
+                           Email = "user5@expense.com",
+                           NormalizedEmail = "user5@expense.com".ToUpper(),
+                           PasswordHash = hasher.HashPassword(null, "User@123")
+                       },
+                        new User
+                        {
+                            Name = "User6",
+                            UserName = "user6@expense.com",
+                            NormalizedUserName = "user6@expense.com".ToUpper(),
+                            Id = userID7,
+                            Email = "user6@expense.com",
+                            NormalizedEmail = "user6@expense.com".ToUpper(),
+                            PasswordHash = hasher.HashPassword(null, "User@123")
+                        },
+                         new User
+                         {
+                             Name = "User7",
+                             UserName = "user7@expense.com",
+                             NormalizedUserName = "user7@expense.com".ToUpper(),
+                             Id = userID8,
+                             Email = "user7@expense.com",
+                             NormalizedEmail = "user7@expense.com".ToUpper(),
+                             PasswordHash = hasher.HashPassword(null, "User@123")
+                         },
+                          new User
+                          {
+                              Name = "User8",
+                              UserName = "user8@expense.com",
+                              NormalizedUserName = "user8@expense.com".ToUpper(),
+                              Id = userID9,
+                              Email = "user8@expense.com",
+                              NormalizedEmail = "user8@expense.com".ToUpper(),
+                              PasswordHash = hasher.HashPassword(null, "User@123")
+                          },
+                           new User
+                           {
+                               Name = "User9",
+                               UserName = "user9@expense.com",
+                               NormalizedUserName = "user9@expense.com".ToUpper(),
+                               Id = userID10,
+                               Email = "user9@expense.com",
+                               NormalizedEmail = "user9@expense.com".ToUpper(),
+                               PasswordHash = hasher.HashPassword(null, "User@123")
+                           }
                );
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Id = "1", Name = "Admin", NormalizedName = "ADMIN".ToUpper() },
-                new IdentityRole { Id = "2", Name = "User", NormalizedName = "USER".ToUpper() }
+                new IdentityRole { Id = "2", Name = "User", NormalizedName = "USER".ToUpper() },
+                new IdentityRole { Id = "3", Name = "User2", NormalizedName = "USER2".ToUpper() },
+                new IdentityRole { Id = "4", Name = "User3", NormalizedName = "USER3".ToUpper() },
+                new IdentityRole { Id = "5", Name = "User4", NormalizedName = "USER4".ToUpper() },
+                new IdentityRole { Id = "6", Name = "User5", NormalizedName = "USER5".ToUpper() },
+                new IdentityRole { Id = "7", Name = "User6", NormalizedName = "USER6".ToUpper() },
+                new IdentityRole { Id = "8", Name = "User7", NormalizedName = "USER7".ToUpper() },
+                new IdentityRole { Id = "9", Name = "User8", NormalizedName = "USER8".ToUpper() },
+                new IdentityRole { Id = "10", Name = "User9", NormalizedName = "USER9".ToUpper() }
             );
 
-         
+
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
             new IdentityUserRole<string> { UserId = userID1, RoleId = "1" },
-            new IdentityUserRole<string> { UserId = userID2, RoleId = "2" }
+            new IdentityUserRole<string> { UserId = userID2, RoleId = "2" },
+            new IdentityUserRole<string> { UserId = userID3, RoleId = "3" },
+            new IdentityUserRole<string> { UserId = userID4, RoleId = "4" },
+            new IdentityUserRole<string> { UserId = userID5, RoleId = "5" },
+            new IdentityUserRole<string> { UserId = userID6, RoleId = "6" },
+            new IdentityUserRole<string> { UserId = userID7, RoleId = "7" },
+            new IdentityUserRole<string> { UserId = userID8, RoleId = "8" },
+            new IdentityUserRole<string> { UserId = userID9, RoleId = "9" },
+            new IdentityUserRole<string> { UserId = userID10, RoleId = "10" }
             );
 
             // User - Group Many-to-Many relationship
