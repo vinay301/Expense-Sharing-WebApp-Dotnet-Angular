@@ -12,12 +12,15 @@ namespace ExpenseSharingWebApp.Controllers
     {
         private readonly IGroupService _groupService;
         private readonly IMapper _mapper;
+        private IGroupService @object;
 
         public GroupController(IGroupService groupService, IMapper mapper)
         {
             this._groupService = groupService;
             this._mapper = mapper;
         }
+
+      
 
         [HttpPost("CreateGroup")]
         public async Task<IActionResult> CreateGroup([FromBody] CreateGroupRequestDto createGroupRequestDto)
@@ -30,10 +33,9 @@ namespace ExpenseSharingWebApp.Controllers
             try
             {
                 var group = await _groupService.CreateGroupAsync(createGroupRequestDto);
-                var groupDto = _mapper.Map<GroupResponseDto>(group); // Map entity to DTO
-                return Ok(groupDto);
-                //var group = await _groupService.CreateGroupAsync(groupDto);
-                //return Ok(group);
+                return Ok(group);
+                //var groupDto = _mapper.Map<GroupResponseDto>(group); // Map entity to DTO
+                //return Ok(groupDto);
             }
             catch (Exception ex)
             {

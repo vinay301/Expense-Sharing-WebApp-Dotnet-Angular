@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fDmDyrLKaE1QMeufuYM/8Yi5OIFhirzMzSXEvO3xeWKl2/qu3ihjbWt3UcjiLIYagUmbuk5FY2Zc2t64XknZUg==",
+  "dgSpecHash": "P3FFNgaWJRwaUkB/S2Ln85/JcLrJs6s+5zkPnOcUKkb2xsVzFiiovi1BOfrwyriljknUS/0ZKhrg5nAf30e+tA==",
   "success": true,
   "projectFilePath": "C:\\Users\\vinaysharma04\\OneDrive - Nagarro\\Desktop\\PersonalProjects\\Expense Sharing Application - Dotnet & Angular\\ExpenseSharingWebApp\\ExpenseSharingWebApp\\ExpenseSharingWebApp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\vinaysharma04\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\vinaysharma04\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\duende.identityserver\\6.0.4\\duende.identityserver.6.0.4.nupkg.sha512",
@@ -99,16 +99,5 @@
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\vinaysharma04\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: Duende.IdentityServer.EntityFramework.Storage 6.0.4 requires AutoMapper (>= 11.0.0 && < 12.0.0) but version AutoMapper 13.0.1 was resolved.",
-      "libraryId": "AutoMapper",
-      "targetGraphs": [
-        "net7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSharingWebApp", "ExpenseSharingWebApp\ExpenseSharingWebApp.csproj", "{1F3E8748-5429-46A8-ABD3-EAF58483DC81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseSharingWebApp", "ExpenseSharingWebApp\ExpenseSharingWebApp.csproj", "{1F3E8748-5429-46A8-ABD3-EAF58483DC81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSharingWebApp.DAL", "ExpenseSharingWebApp.DAL\ExpenseSharingWebApp.DAL.csproj", "{49E03671-FD23-4C1C-8FE5-A0AC39480B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseSharingWebApp.DAL", "ExpenseSharingWebApp.DAL\ExpenseSharingWebApp.DAL.csproj", "{49E03671-FD23-4C1C-8FE5-A0AC39480B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSharingWebApp.BLL", "ExpenseSharingWebApp.BLL\ExpenseSharingWebApp.BLL.csproj", "{7B82C0A8-C7F5-4637-A36A-9C50BC719921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseSharingWebApp.BLL", "ExpenseSharingWebApp.BLL\ExpenseSharingWebApp.BLL.csproj", "{7B82C0A8-C7F5-4637-A36A-9C50BC719921}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseSharingWebApp.Test", "ExpenseSharingWebApp.Test\ExpenseSharingWebApp.Test.csproj", "{253A4B4C-777B-43C2-9C4A-78763682A59F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7B82C0A8-C7F5-4637-A36A-9C50BC719921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B82C0A8-C7F5-4637-A36A-9C50BC719921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B82C0A8-C7F5-4637-A36A-9C50BC719921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{253A4B4C-777B-43C2-9C4A-78763682A59F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253A4B4C-777B-43C2-9C4A-78763682A59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253A4B4C-777B-43C2-9C4A-78763682A59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253A4B4C-777B-43C2-9C4A-78763682A59F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -60,7 +60,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 //Setup Mapping Config & AutoMapper
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
