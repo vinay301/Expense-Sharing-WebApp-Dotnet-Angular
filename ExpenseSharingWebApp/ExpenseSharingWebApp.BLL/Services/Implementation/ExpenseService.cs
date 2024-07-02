@@ -30,76 +30,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             this._userRepository = userRepository;
         }
 
-        //public async Task<ExpenseResponseDto> CreateExpenseAsync(CreateExpenseRequestDto createExpenseRequestDto)
-        //{
-        //    var expense = _mapper.Map<Expense>(createExpenseRequestDto);
-        //    expense.Id = Guid.NewGuid().ToString();
-        //    expense.Date = DateTime.UtcNow;
-        //    expense.IsSettled = false;
-
-        //    var group = await _groupRepository.GetGroupByIdAsync(createExpenseRequestDto.GroupId);
-        //    if (group == null)
-        //    {
-        //        throw new Exception("Group not found.");
-        //    }
-
-        //    var paidByUser = await _groupRepository.GetUserByIdAsync(createExpenseRequestDto.PaidByUserId);
-        //    if (paidByUser == null)
-        //    {
-        //        throw new Exception("User who paid not found.");
-        //    }
-        //    expense.SplitAmong = new List<User>();
-        //    foreach (var userId in createExpenseRequestDto.SplitWithUserIds)
-        //    {
-        //        var user = await _groupRepository.GetUserByIdAsync(userId);
-        //        if (user != null)
-        //        {
-        //            expense.SplitAmong.Add(user);
-        //        }
-        //        else
-        //        {
-        //            throw new Exception($"User with ID {userId} not found.");
-        //        }
-        //    }
-        //    decimal individualShare;
-        //    if(expense.SplitAmong.Count == 1)
-        //    {
-        //        individualShare = expense.Amount / 2;
-        //    }
-        //    else
-        //    {
-        //        individualShare = expense.Amount / expense.SplitAmong.Count; //got exception over this line
-        //    }
-
-        //    expense.ExpenseSplits = createExpenseRequestDto.SplitWithUserIds.Select(userId => new ExpenseSplit
-        //    {
-        //        UserId = userId,
-        //        PaidToUserId = createExpenseRequestDto.PaidByUserId,
-        //        ExpenseId = expense.Id,
-        //        AmountOwed = userId == createExpenseRequestDto.PaidByUserId ? 0 : individualShare,
-        //        AmountPaid = userId == createExpenseRequestDto.PaidByUserId ? expense.Amount : 0,
-        //        IsSettled = false
-
-        //    }).ToList();
-        //    // Add an ExpenseSplit for the PaidByUserId if not already added
-        //    if (!expense.ExpenseSplits.Any(es => es.UserId == createExpenseRequestDto.PaidByUserId))
-        //    {
-        //        expense.ExpenseSplits.Add(new ExpenseSplit
-        //        {
-        //            UserId = createExpenseRequestDto.PaidByUserId,
-        //            PaidToUserId = createExpenseRequestDto.PaidByUserId,
-        //            ExpenseId = expense.Id,
-        //            AmountOwed = 0,
-        //            AmountPaid = expense.Amount,
-        //            IsSettled = false
-        //        });
-        //    }
-
-
-        //    await _expenseRepository.CreateExpenseAsync(expense);
-        //    return _mapper.Map<ExpenseResponseDto>(expense);
-
-        //}
 
         public async Task<ExpenseResponseDto> CreateExpenseAsync(CreateExpenseRequestDto createExpenseRequestDto)
         {
@@ -184,42 +114,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
         }
 
 
-        private async Task UpdateUserBalanceAsync(string userId, string groupId, decimal amount)
-        {
-            for (int i = 0; i < 3; i++) // Retry logic: try up to 3 times
-            {
-                try
-                {
-                    var userBalance = await _expenseRepository.GetUserBalanceAsync(userId, groupId);
-                    if (userBalance == null)
-                    {
-                        userBalance = new UserBalance { Id = Guid.NewGuid().ToString(), UserId = userId, GroupId = groupId, AmountOwed = amount };
-                        await _expenseRepository.CreateUserBalanceAsync(userBalance);
-                    }
-                    else
-                    {
-                        userBalance.AmountOwed += amount;
-                        await _expenseRepository.UpdateUserBalanceAsync(userBalance);
-                    }
-                    break; // Break out of the loop if update is successful
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (i == 2) // If it fails 3 times, rethrow the exception
-                    {
-                        throw;
-                    }
-                    // Reload user balance from the database
-                    var userBalance = await _expenseRepository.GetUserBalanceAsync(userId, groupId);
-                    if (userBalance == null)
-                    {
-                        userBalance = new UserBalance { Id = Guid.NewGuid().ToString(), UserId = userId, GroupId = groupId, AmountOwed = amount };
-                        await _expenseRepository.CreateUserBalanceAsync(userBalance);
-                    }
-                }
-            }
-        }
-
+       
             public async Task<ExpenseResponseDto> GetExpenseByIdAsync(string expenseId)
         {
             var expense = await _expenseRepository.GetExpenseByIdAsync(expenseId);
@@ -266,7 +161,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
 
         };
             return expenseResponseDto;
-            //return _mapper.Map<ExpenseResponseDto>(expense);
         }
 
         public async Task<List<ExpenseResponseDto>> GetAllExpensesByGroupIdAsync(string groupId)
@@ -398,16 +292,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             payerBalance.AmountPaid += split.AmountOwed; 
             await _expenseRepository.UpdateUserBalanceAsync(payerBalance);
 
-            //// Check if all splits are settled except for the one who paid
-            //if (expense.ExpenseSplits.Where(es => es.UserId != split.PaidToUserId).All(es => es.IsSettled))
-            //{
-            //    expense.IsSettled = true;
-            //    await _expenseRepository.UpdateExpenseAsync(expense);
-            //}
-            //else
-            //{
-            //    await _expenseRepository.UpdateExpenseAsync(expense);
-            //}
 
             // Check if all splits are settled
             Console.WriteLine($"Expense ID: {expense.Id}, IsSettled Before: {expense.IsSettled}");
@@ -427,27 +311,44 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             var expenses = await _expenseRepository.GetAllExpensesByGroupIdAsync(groupId);
             var balances = new Dictionary<string, decimal>();
 
+            //foreach (var expense in expenses)
+            //{
+            //    foreach (var split in expense.ExpenseSplits)
+            //    {
+            //        if (!balances.ContainsKey(split.UserId))
+            //        {
+            //            balances[split.UserId] = 0;
+            //        }
+            //        if (!balances.ContainsKey(split.PaidToUserId))
+            //        {
+            //            balances[split.PaidToUserId] = 0;
+            //        }
+            //        //update userBalance for user who owed money
+            //        if (split.UserId == expense.PaidByUserId)
+            //        {
+            //            balances[split.UserId] += split.AmountOwed;
+            //        }
+            //        else
+            //        {
+            //            balances[split.UserId] -= split.AmountPaid;
+            //        }
+            //    }
+            //}
             foreach (var expense in expenses)
             {
+                if (!balances.ContainsKey(expense.PaidByUserId))
+                {
+                    balances[expense.PaidByUserId] = 0;
+                }
+                balances[expense.PaidByUserId] += expense.Amount; // Add full amount to payer's balance
+
                 foreach (var split in expense.ExpenseSplits)
                 {
                     if (!balances.ContainsKey(split.UserId))
                     {
                         balances[split.UserId] = 0;
                     }
-                    if (!balances.ContainsKey(split.PaidToUserId))
-                    {
-                        balances[split.PaidToUserId] = 0;
-                    }
-                    //update userBalance for user who owed money
-                    if (split.UserId == expense.PaidByUserId)
-                    {
-                        balances[split.UserId] += split.AmountOwed;
-                    }
-                    else
-                    {
-                        balances[split.UserId] -= split.AmountPaid;
-                    }
+                    balances[split.UserId] -= split.AmountOwed; // Subtract owed amount from each user's balance
                 }
             }
 
