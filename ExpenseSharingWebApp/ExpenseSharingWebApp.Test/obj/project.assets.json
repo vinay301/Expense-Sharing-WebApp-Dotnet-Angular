@@ -547,6 +547,22 @@
           "lib/netstandard2.0/_._": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.InMemory/7.0.10": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.10"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/7.0.16": {
         "type": "package",
         "dependencies": {
@@ -2841,6 +2857,20 @@
         "lib/netstandard2.0/_._",
         "microsoft.entityframeworkcore.analyzers.7.0.16.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/7.0.10": {
+      "sha512": "WeUjWx80ZVQVXkHuEIO4kOCKUHo6C4RdB1bJZLSngLWqwrQrMTCZE90IGBz0330GXmXKbL4LyJO/rXO/w7cRNA==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/7.0.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.7.0.10.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/7.0.16": {
@@ -5247,6 +5277,7 @@
       "ExpenseSharingWebApp >= 1.0.0",
       "ExpenseSharingWebApp.BLL >= 1.0.0",
       "ExpenseSharingWebApp.DAL >= 1.0.0",
+      "Microsoft.EntityFrameworkCore.InMemory >= 7.0.10",
       "Microsoft.NET.Test.Sdk >= 17.10.0",
       "Moq >= 4.20.70",
       "xunit >= 2.8.1",
@@ -5308,6 +5339,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.InMemory": {
+            "target": "Package",
+            "version": "[7.0.10, )"
+          },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[17.10.0, )"

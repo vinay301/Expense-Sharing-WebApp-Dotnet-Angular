@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ExpenseSharingWebApp.Test.Repository
+namespace ExpenseSharingWebApp.Test.Service
 {
     public class ExpenseServiceTest
     {
