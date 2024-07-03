@@ -194,6 +194,7 @@ namespace ExpenseSharingWebApp.DAL.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Expense - User Many-to-Many relationship for SplitAmong
+
             modelBuilder.Entity<ExpenseSplit>()
                  .HasKey(es => new { es.UserId, es.ExpenseId });
 
