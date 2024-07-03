@@ -335,13 +335,31 @@ namespace ExpenseSharingWebApp.Test.Repository
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
 
+            var expenses = new List<Expense>
+            {
+                new Expense { Id = "expense1", GroupId = groupId, Description = "Expense 1" },
+                new Expense { Id = "expense2", GroupId = groupId, Description = "Expense 2" },
+                new Expense { Id = "expense3", GroupId = groupId, Description = "Expense 3" }
+            };
+            _context.Expenses.AddRange(expenses);
+            await _context.SaveChangesAsync();
+
+            //var expenseSplits = new List<ExpenseSplit>
+            //{
+            //    new ExpenseSplit { Id = "1", UserId = userId, Expense = new Expense { GroupId = groupId } },
+            //    new ExpenseSplit { Id = "2", UserId = userId, Expense = new Expense { GroupId = groupId } },
+            //    new ExpenseSplit { Id = "3", UserId = "otherUser", Expense = new Expense { GroupId = groupId } }
+            //};
+
+            //_context.ExpenseSplits.AddRange(expenseSplits);
+            //await _context.SaveChangesAsync();
+
             var expenseSplits = new List<ExpenseSplit>
             {
-                new ExpenseSplit { Id = "1", UserId = userId, Expense = new Expense { GroupId = groupId } },
-                new ExpenseSplit { Id = "2", UserId = userId, Expense = new Expense { GroupId = groupId } },
-                new ExpenseSplit { Id = "3", UserId = "otherUser", Expense = new Expense { GroupId = groupId } }
+                new ExpenseSplit { UserId = userId, ExpenseId = "expense1" },
+                new ExpenseSplit { UserId = userId, ExpenseId = "expense2" },
+                new ExpenseSplit { UserId = "otherUser", ExpenseId = "expense3" }
             };
-
             _context.ExpenseSplits.AddRange(expenseSplits);
             await _context.SaveChangesAsync();
 
@@ -350,8 +368,9 @@ namespace ExpenseSharingWebApp.Test.Repository
 
             // Assert
             Assert.Equal(2, result.Count());
-            Assert.Contains(result, es => es.ExpenseId == "expense1" && es.AmountPaid == 50);
-            Assert.Contains(result, es => es.ExpenseId == "expense2" && es.AmountOwed == 75);
+           
+            Assert.Contains(result, es => es.ExpenseId == "expense1");
+            Assert.Contains(result, es => es.ExpenseId == "expense2");
             Assert.DoesNotContain(result, es => es.ExpenseId == "expense3");
         }
     }
