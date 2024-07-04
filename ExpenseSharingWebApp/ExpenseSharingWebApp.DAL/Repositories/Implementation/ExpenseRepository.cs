@@ -19,6 +19,11 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             this._expenseSharingDbContext = expenseSharingDbContext;
         }
 
+        public void Attach<TEntity>(TEntity entity) where TEntity : class
+        {
+            _expenseSharingDbContext.Attach(entity);
+        }
+
         public async Task<Expense> CreateExpenseAsync(Expense expense)
         {
             await _expenseSharingDbContext.Expenses.AddAsync(expense);
@@ -121,23 +126,25 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
 
         }
 
-        //public async Task<List<Expense>> GetUserExpensesAsync(string groupId, string userId)
-        //{
-        //    return await _expenseSharingDbContext.Expenses
-        //        .Include(e => e.PaidByUser)
-        //        .Include(e => e.SplitAmong)
-        //        .Where(e => e.GroupId == groupId && e.SplitAmong.Any(u => u.Id == userId))
-        //        .ToListAsync();
-        //}
-
         public async Task<List<Expense>> GetUserExpensesAsync(string groupId, string userId)
         {
             return await _expenseSharingDbContext.Expenses
-                .Include(e => e.ExpenseSplits)
-                .ThenInclude(es => es.User)
-                .Where(e => e.GroupId == groupId && e.ExpenseSplits.Any(es => es.UserId == userId))
+                .Include(e => e.PaidByUser)
+                .Include(e => e.SplitAmong)
+                .Where(e => e.GroupId == groupId && e.SplitAmong.Any(u => u.Id == userId))
+                .AsNoTracking()
                 .ToListAsync();
         }
+
+        //public async Task<List<Expense>> GetUserExpensesAsync(string groupid, string userid)
+        //{
+        //    return await _expenseSharingDbContext.Expenses
+        //        .AsNoTracking()
+        //        .Include(e => e.ExpenseSplits)
+        //        .ThenInclude(es => es.User)
+        //        .Where(e => e.GroupId == groupid && e.ExpenseSplits.Any(es => es.UserId == userid))
+        //        .ToListAsync();
+        //}
 
 
         public async Task<IEnumerable<ExpenseSplit>> GetExpenseSplitsAsync(string userId, string groupId)

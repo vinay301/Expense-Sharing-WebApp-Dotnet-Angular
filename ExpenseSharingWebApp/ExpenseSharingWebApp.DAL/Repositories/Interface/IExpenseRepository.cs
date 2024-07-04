@@ -9,6 +9,7 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Interface
 {
     public interface IExpenseRepository
     {
+        void Attach<TEntity>(TEntity entity) where TEntity : class;
         Task<Expense> CreateExpenseAsync(Expense expense);
         Task<Expense> GetExpenseByIdAsync(string expenseId);
         Task<List<Expense>> GetAllExpensesByGroupIdAsync(string groupId);

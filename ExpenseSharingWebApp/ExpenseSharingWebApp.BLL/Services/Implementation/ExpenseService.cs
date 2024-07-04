@@ -271,7 +271,8 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             {
                 userBalance.IsSettled = true;
             }
-
+            // Attach the user balance entity before updating
+            _expenseRepository.Attach(userBalance);
             await _expenseRepository.UpdateUserBalanceAsync(userBalance);
 
             // Update the balance for the user who paid
@@ -289,7 +290,9 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                 };
             }
 
-            payerBalance.AmountPaid += split.AmountOwed; 
+            payerBalance.AmountPaid += split.AmountOwed;
+            // Attach the payer balance entity before updating
+            _expenseRepository.Attach(payerBalance);
             await _expenseRepository.UpdateUserBalanceAsync(payerBalance);
 
 
@@ -300,6 +303,8 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             {
                 expense.IsSettled = true;
                 Console.WriteLine($"Expense ID: {expense.Id} is now marked as settled.");
+                // Attach the expense entity before updating
+                _expenseRepository.Attach(expense);
                 await _expenseRepository.UpdateExpenseAsync(expense);
             }
          
