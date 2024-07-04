@@ -27,4 +27,12 @@ addGroup(groupObj : Group) : Observable<Group>{
   return this.http.post<Group>(this.baseApiUrl + '/api/group/CreateGroup',groupObj)
 }
 
+addMembersInGroup(groupId:string, userIds:string[]) : Observable<void>{
+  return this.http.post<void>(this.baseApiUrl + `/api/group/AddUsersInGroup/${groupId}`,userIds);
+}
+
+deleteMemberOfGroup(groupId:string, userId:string){
+  return this.http.delete<void>(this.baseApiUrl + `/api/group/DeleteUsersInGroup/${groupId}/${userId}`);
+}
+
 }

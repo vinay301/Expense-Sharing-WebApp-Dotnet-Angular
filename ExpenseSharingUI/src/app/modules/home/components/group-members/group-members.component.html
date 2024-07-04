@@ -1,6 +1,23 @@
 <div class="front">
   <div class="container">
    <h4 class="text-center mt-5 mb-3">Members Of {{groupDetails.name}}</h4>
+  
+
+   <ng-multiselect-dropdown
+  [placeholder]="'Add Members'"
+  [settings]="dropdownSettings"
+  [data]="addMemberList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+>
+</ng-multiselect-dropdown>
+ <button *ngIf="selectedItems && selectedItems.length > 0" 
+          class="rounded-pill px-2 py-2 mt-2 text-white add-member-button" 
+          (click)="addMembers(groupDetails.id)">
+  Add Members
+  </button>
+
   <div class="resultTable mt-5">
     <table class="table">
         <thead class="thead-dark">
@@ -16,7 +33,7 @@
             <td>{{member.id}}</td>
             <td>{{member.name}}</td>
             <td>{{member.email}}</td>
-           
+            <td><mat-icon (click)="deleteMemberOfGroup(groupDetails.id,member.id)" style="cursor: pointer;">delete</mat-icon></td>
           </tr>
         </tbody>
       </table>    

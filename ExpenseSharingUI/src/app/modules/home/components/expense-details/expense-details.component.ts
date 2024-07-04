@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ExpenseService } from '../../services/expense.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Expense } from '../../../../core/models/expense.model';
 import { ExpenseSplit } from '../../../../core/models/expense-split.model';
 import { User } from '../../../../core/models/user.model';
 import { AuthService } from '../../../auth/services/auth.service';
 import { NgToastService } from 'ng-angular-popup';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-expense-details',
@@ -20,8 +21,8 @@ export class ExpenseDetailsComponent implements OnInit {
 
   loggedInUserId : string = '';
 
-
-  constructor(private expenseService:ExpenseService, private activatedRoute:ActivatedRoute, private authService : AuthService, private toast : NgToastService) { }
+  location = inject(Location)
+  constructor(private expenseService:ExpenseService, private activatedRoute:ActivatedRoute, private authService : AuthService, private toast : NgToastService, private router : Router) { }
 
   ngOnInit() {
     this.loggedInUserId = this.authService.getUserIdFromToken();
@@ -36,6 +37,10 @@ export class ExpenseDetailsComponent implements OnInit {
         console.log("paidByUser:", this.paidByUser);
       }
     )
+  }
+
+  back(){
+    this.location.back();
   }
 
   settleExpense(splittedUserId:string){
@@ -55,6 +60,15 @@ export class ExpenseDetailsComponent implements OnInit {
         }
        )
     }
+  }
+
+  deleteExpense(){
+    this.expenseService.deleteExpense(this.expenseDetails.id).subscribe({
+      next: (res) => {
+        this.toast.success("Expense deleted successfully!", "SUCCESS", 5000)
+       this.back();
+      }
+    })
   }
 }
 

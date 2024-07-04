@@ -33,4 +33,8 @@ settleExpense(expenseId:string, settledByUserId:string) : Observable<ExpenseSpli
   return this.http.post<ExpenseSplit>(this.baseApiUrl + `/api/Expenses/SettleExpense/${expenseId}/${settledByUserId}`,{})
 }
 
+deleteExpense(expenseId : string) : Observable<Expense>{
+  return this.http.delete<Expense>(this.baseApiUrl + `/api/Expenses/DeleteExpense/${expenseId}`);
+}
+
 }

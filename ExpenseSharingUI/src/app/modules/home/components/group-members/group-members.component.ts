@@ -3,6 +3,9 @@ import { Group } from '../../../../core/models/group.model';
 import { User } from '../../../../core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
 import { GroupService } from '../../services/group.service';
+import { UserService } from '../../../../core/services/user.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-group-members',
@@ -13,16 +16,92 @@ export class GroupMembersComponent implements OnInit {
 
   groupDetails !: Group;
   members: User[] = [];
-  constructor(private activatedRoute : ActivatedRoute, private groupService:GroupService) { }
+
+  addMemberList : User[] = [];
+  dropdownList = [];
+  selectedItems : User[] = [];
+  dropdownSettings : IDropdownSettings = {};
+  selectedIds: string[] = [];
+ 
+  constructor(private activatedRoute : ActivatedRoute, private groupService:GroupService, private userService : UserService, private toast : NgToastService) { }
 
   ngOnInit() {
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
     let groupId = this.activatedRoute.snapshot.paramMap.get('id');
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (res : Group) => {
         this.groupDetails = res;
         this.members = res.userGroups.map((userGroup: any) => userGroup.user);
+        this.loadAddMembersDropDownList();
+       
       }
     )
   }
 
+  addMembers(groupId : string){
+    if(groupId){
+      // const userIds = Array.from(new Set(this.selectedItems.map(item => String(item.id))));
+      // console.log("UserIds",userIds);
+      const userIds = this.selectedItems.map(item => item.id);
+      console.log(userIds)
+      this.groupService.addMembersInGroup(groupId, userIds).subscribe(
+        (res) => {
+          console.log(res);
+          this.toast.success("Success","Members added successfully",3000)
+          setTimeout(()=>{
+            window.location.reload();
+          },3000)
+         
+        }
+      )
+    }
+  }
+
+  loadAddMembersDropDownList(){
+    this.userService.getAllUsers().subscribe(
+      (res) => {
+        const memberIds = this.members.map(member => member.id);
+        this.addMemberList = res.filter(user => !memberIds.includes(user.id));
+        console.log(this.addMemberList.map(u => u.name));
+      }
+    )
+  }
+
+
+
+  onItemSelect(item: any) {
+    const id = item.id; 
+    if (id) {
+      this.selectedIds.push(id);
+    }
+    console.log("Selected IDs:", this.selectedIds);
+  }
+  onSelectAll(items: any) {
+    const ids = items.map((item: any) => item.id).filter((id: string) => id); 
+    this.selectedIds.push(...ids);
+    console.log("Selected IDs:", this.selectedIds);
+  }
+
+  deleteMemberOfGroup(groupId:string, userId:string){
+    this.groupService.deleteMemberOfGroup(groupId, userId).subscribe(
+      ()=>{
+        this.toast.success("Success","Member deleted successfully",3000);
+        setTimeout(()=>{
+          window.location.reload();
+        }
+        ,1000)
+      }
+    );
+  }
+  
 }

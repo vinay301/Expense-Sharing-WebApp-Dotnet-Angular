@@ -1,6 +1,11 @@
 <div class="expense-details">
-  <h1>Expense Details</h1>
-
+  <div class="expense-header">
+    <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="back()">back</button>
+    <h1>Expense Details</h1>
+    <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="deleteExpense()">delete</button>
+  </div>
+ 
+ 
   <div class="expense-info">
     <h2>General Information</h2>
     <p><strong>Description:</strong> {{ expenseDetails.description}}</p>
