@@ -262,6 +262,8 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                     AmountPaid = 0,
                     IsSettled = false
                 };
+                _expenseRepository.Attach(userBalance);
+                await _expenseRepository.CreateUserBalanceAsync(userBalance);
             }
 
             userBalance.AmountOwed -= split.AmountOwed;
@@ -288,12 +290,16 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                     AmountPaid = 0,
                     IsSettled = false
                 };
+                _expenseRepository.Attach(payerBalance);
+                await _expenseRepository.CreateUserBalanceAsync(payerBalance);
             }
 
-            payerBalance.AmountPaid += split.AmountOwed;
-            // Attach the payer balance entity before updating
-            _expenseRepository.Attach(payerBalance);
-            await _expenseRepository.UpdateUserBalanceAsync(payerBalance);
+            else
+            {
+                payerBalance.AmountPaid += split.AmountOwed;
+                _expenseRepository.Attach(payerBalance);
+                await _expenseRepository.UpdateUserBalanceAsync(payerBalance);
+            }
 
 
             // Check if all splits are settled
@@ -307,7 +313,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                 _expenseRepository.Attach(expense);
                 await _expenseRepository.UpdateExpenseAsync(expense);
             }
-         
+            await _expenseRepository.SaveChangesAsync();
         }
 
 

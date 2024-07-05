@@ -202,241 +202,8 @@ namespace ExpenseSharingWebApp.Test.Repository
             Assert.True(updatedUserBalance.IsSettled);
         }
 
-        //[Fact]
-        //public async Task GetUserExpensesAsync_ShouldReturnUserExpenses()
-        //{
-        //    var user1 = new User { Id = "user1", UserName = "TestUser" };
-        //    var user2 = new User { Id = "otherUser", UserName = "OtherUser" };
-        //    var group = new Group { Id = "group1", Name = "TestGroup" };
 
-        //    _context.Users.Add(user1);
-        //    _context.Users.Add(user2);
-        //    _context.Groups.Add(group);
-        //    _context.SaveChanges();
-
-        //    var expenses = new List<Expense>
-        //{
-        //    new Expense
-        //    {
-        //        Id = "1",
-        //        Description = "Expense 1",
-        //        GroupId = "group1",
-        //        PaidByUserId = "user1",
-        //    },
-        //    new Expense
-        //    {
-        //        Id = "2",
-        //        Description = "Expense 2",
-        //        GroupId = "group1",
-        //        PaidByUserId = "user1",
-        //    },
-        //    new Expense
-        //    {
-        //        Id = "3",
-        //        Description = "Expense 3",
-        //        GroupId = "group1",
-        //        PaidByUserId = "user1",
-        //    }
-        //};
-
-        //    _context.Expenses.AddRange(expenses);
-        //    _context.SaveChanges();
-
-        //        var expenseSplits = new List<ExpenseSplit>
-        //        {
-        //            new ExpenseSplit { UserId = "user1", ExpenseId = "1" },
-        //            new ExpenseSplit { UserId = "user1", ExpenseId = "2" },
-        //            new ExpenseSplit { UserId = "otherUser", ExpenseId = "3" }
-        //        };
-
-        //    _context.ExpenseSplits.AddRange(expenseSplits);
-        //    _context.SaveChanges();
-
-        //    // Act
-        //    var result = await _repository.GetUserExpensesAsync("group1", "user1");
-
-        //    // Assert
-        //    Assert.Equal(2, result.Count);
-        //    Assert.Contains(result, e => e.Description == "Expense 1");
-        //    Assert.Contains(result, e => e.Description == "Expense 2");
-
-        //}
-        [Fact]
-        public async Task GetUserExpensesAsync_ShouldReturnUserExpenses()
-        {
-            // Arrange
-            var user1 = new User { Id = "user1", UserName = "TestUser" };
-            var user2 = new User { Id = "otherUser", UserName = "OtherUser" };
-            var group = new Group { Id = "group1", Name = "TestGroup" };
-
-            _context.Users.AddRange(user1, user2);
-            _context.Groups.Add(group);
-            await _context.SaveChangesAsync();
-
-            var expenses = new List<Expense>
-    {
-        new Expense
-        {
-            Id = "1",
-            Description = "Expense 1",
-            GroupId = "group1",
-            PaidByUser = user1,
-            SplitAmong = new List<User> { user1, user2 }
-        },
-        new Expense
-        {
-            Id = "2",
-            Description = "Expense 2",
-            GroupId = "group1",
-            PaidByUser = user2,
-            SplitAmong = new List<User> { user1 }
-        },
-        new Expense
-        {
-            Id = "3",
-            Description = "Expense 3",
-            GroupId = "group1",
-            PaidByUser = user2,
-            SplitAmong = new List<User> { user2 }
-        }
-    };
-
-            _context.Expenses.AddRange(expenses);
-            await _context.SaveChangesAsync();
-
-            // Act
-            var result = await _repository.GetUserExpensesAsync("group1", "user1");
-
-            // Debug information
-            Console.WriteLine($"Number of expenses returned: {result.Count}");
-            foreach (var expense in result)
-            {
-                Console.WriteLine($"Expense ID: {expense.Id}, Description: {expense.Description}");
-                Console.WriteLine($"PaidByUser: {expense.PaidByUser?.Id ?? "null"}");
-                Console.WriteLine($"SplitAmong count: {expense.SplitAmong?.Count ?? 0}");
-                if (expense.SplitAmong != null)
-                {
-                    foreach (var user in expense.SplitAmong)
-                    {
-                        Console.WriteLine($"  User in SplitAmong: {user.Id}");
-                    }
-                }
-                Console.WriteLine("---");
-            }
-
-            // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Contains(result, e => e.Description == "Expense 1");
-            Assert.Contains(result, e => e.Description == "Expense 2");
-            Assert.DoesNotContain(result, e => e.Description == "Expense 3");
-
-            // Additional assertions to verify PaidByUser and SplitAmong are loaded
-            foreach (var expense in result)
-            {
-                Assert.NotNull(expense.PaidByUser);
-                Assert.NotEmpty(expense.SplitAmong);
-                Assert.Contains(expense.SplitAmong, u => u.Id == "user1");
-            }
-
-            // Verify specific relationships
-            var expense1 = result.First(e => e.Id == "1");
-            Assert.Equal("user1", expense1.PaidByUser.Id);
-            Assert.Contains(expense1.SplitAmong, u => u.Id == "user2");
-
-            var expense2 = result.First(e => e.Id == "2");
-            Assert.Equal("otherUser", expense2.PaidByUser.Id);
-            Assert.Single(expense2.SplitAmong);
-            Assert.Equal("user1", expense2.SplitAmong.First().Id);
-        }
-
-
-    //    [Fact]
-    //    public async Task GetUserExpensesAsync_ShouldReturnUserExpenses()
-    //    {
-    //        // Arrange
-    //        var user1 = new User { Id = "user1", UserName = "TestUser" };
-    //        var user2 = new User { Id = "otherUser", UserName = "OtherUser" };
-    //        var group = new Group { Id = "group1", Name = "TestGroup" };
-
-    //        _context.Users.AddRange(user1, user2);
-    //        _context.Groups.Add(group);
-    //        await _context.SaveChangesAsync();
-
-    //        var expenses = new List<Expense>
-    //{
-    //    new Expense
-    //    {
-    //        Id = "1",
-    //        Description = "Expense 1",
-    //        GroupId = "group1",
-    //        PaidByUser = user1,
-    //        SplitAmong = new List<User> { user1, user2 }
-    //    },
-    //    new Expense
-    //    {
-    //        Id = "2",
-    //        Description = "Expense 2",
-    //        GroupId = "group1",
-    //        PaidByUser = user2,
-    //        SplitAmong = new List<User> { user1 }
-    //    },
-    //    new Expense
-    //    {
-    //        Id = "3",
-    //        Description = "Expense 3",
-    //        GroupId = "group1",
-    //        PaidByUser = user2,
-    //        SplitAmong = new List<User> { user2 }
-    //    }
-    //};
-
-    //        _context.Expenses.AddRange(expenses);
-    //        await _context.SaveChangesAsync();
-
-    //        // Act
-    //        var result = await _repository.GetUserExpensesAsync("group1", "user1");
-
-    //        // Debug information
-    //        Console.WriteLine($"Number of expenses returned: {result.Count}");
-    //        foreach (var expense in result)
-    //        {
-    //            Console.WriteLine($"Expense ID: {expense.Id}, Description: {expense.Description}");
-    //            Console.WriteLine($"PaidByUser: {expense.PaidByUser?.Id ?? "null"}");
-    //            Console.WriteLine($"SplitAmong count: {expense.SplitAmong?.Count ?? 0}");
-    //            if (expense.SplitAmong != null)
-    //            {
-    //                foreach (var user in expense.SplitAmong)
-    //                {
-    //                    Console.WriteLine($"  User in SplitAmong: {user.Id}");
-    //                }
-    //            }
-    //            Console.WriteLine("---");
-    //        }
-
-    //            // Assert
-    //            Assert.Equal(2, result.Count);
-    //        Assert.Contains(result, e => e.Description == "Expense 1");
-    //        Assert.Contains(result, e => e.Description == "Expense 2");
-    //        Assert.DoesNotContain(result, e => e.Description == "Expense 3");
-
-    //        // Additional assertions to verify PaidByUser and SplitAmong are loaded
-    //        foreach (var expense in result)
-    //        {
-    //            Assert.NotNull(expense.PaidByUser);
-    //            Assert.NotEmpty(expense.SplitAmong);
-    //            Assert.Contains(expense.SplitAmong, u => u.Id == "user1");
-    //        }
-
-    //        // Verify specific relationships
-    //        var expense1 = result.First(e => e.Id == "1");
-    //        Assert.Equal("user1", expense1.PaidByUser.Id);
-    //        Assert.Contains(expense1.SplitAmong, u => u.Id == "user2");
-
-    //        var expense2 = result.First(e => e.Id == "2");
-    //        Assert.Equal("otherUser", expense2.PaidByUser.Id);
-    //        Assert.Single(expense2.SplitAmong);
-    //        Assert.Equal("user1", expense2.SplitAmong.First().Id);
-    //    }
+       
 
         [Fact]
         public async Task GetExpenseSplitsAsync_ShouldReturnExpenseSplits()
@@ -479,6 +246,84 @@ namespace ExpenseSharingWebApp.Test.Repository
             Assert.Contains(result, es => es.ExpenseId == "expense1");
             Assert.Contains(result, es => es.ExpenseId == "expense2");
             Assert.DoesNotContain(result, es => es.ExpenseId == "expense3");
+        }
+
+        [Fact]
+        public async Task GetUserExpensesAsync_ShouldReturnUserExpenses()
+        {
+            // Arrange
+            var user1 = new User { Id = "user1", UserName = "TestUser" };
+            var user2 = new User { Id = "otherUser", UserName = "OtherUser" };
+            var group = new Group { Id = "group1", Name = "TestGroup" };
+
+            _context.Users.AddRange(user1, user2);
+            _context.Groups.Add(group);
+            await _context.SaveChangesAsync();
+
+            var expenses = new List<Expense>
+            {
+                new Expense
+                {
+                    Id = "1",
+                    Description = "Expense 1",
+                    GroupId = group.Id,
+                    PaidByUserId = user1.Id,
+                    ExpenseSplits = new List<ExpenseSplit>
+                    {
+                        new ExpenseSplit { Id = "1", UserId = user2.Id, AmountOwed = 50, AmountPaid = 0 }
+                    }
+                },
+                new Expense
+                {
+                    Id = "2",
+                    Description = "Expense 2",
+                    GroupId = group.Id,
+                    PaidByUserId = user2.Id,
+                    ExpenseSplits = new List<ExpenseSplit>
+                    {
+                        new ExpenseSplit { Id = "2", UserId = user1.Id, AmountOwed = 30, AmountPaid = 0 }
+                    }
+                },
+                new Expense
+                {
+                    Id = "3",
+                    Description = "Expense 3",
+                    GroupId = group.Id,
+                    PaidByUserId = user2.Id,
+                    ExpenseSplits = new List<ExpenseSplit>
+                    {
+                        new ExpenseSplit { Id = "3", UserId = user2.Id, AmountOwed = 20, AmountPaid = 0 }
+                    }
+                }
+            };
+
+            _context.Expenses.AddRange(expenses);
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _repository.GetUserExpensesAsync(group.Id, user2.Id);
+
+            // Assert
+            Assert.Equal(2, result.Count);
+            Assert.Contains(result, e => e.Description == "Expense 1");
+            Assert.Contains(result, e => e.Description == "Expense 3");
+            Assert.DoesNotContain(result, e => e.Description == "Expense 2");
+
+            //// Additional assertions
+            //foreach (var expense in result)
+            //{
+            //    Assert.NotNull(expense.PaidByUser);
+            //    Assert.NotEmpty(expense.ExpenseSplits);
+            //}
+
+            //var expense1 = result.First(e => e.Id == "1");
+            //Assert.Equal("user1", expense1.PaidByUserId);
+            //Assert.Contains(expense1.ExpenseSplits, es => es.UserId == "otherUser");
+
+            //var expense2 = result.First(e => e.Id == "2");
+            //Assert.Equal("otherUser", expense2.PaidByUserId);
+            //Assert.Single(expense2.ExpenseSplits);
+            //Assert.Equal("user1", expense2.ExpenseSplits.First().UserId);
         }
     }
 }

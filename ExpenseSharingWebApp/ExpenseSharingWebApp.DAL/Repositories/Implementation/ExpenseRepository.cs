@@ -61,13 +61,6 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
                 _expenseSharingDbContext.Expenses.Remove(expense);
                 await _expenseSharingDbContext.SaveChangesAsync();
             }
-            //var expenseToBeDeleted = await GetExpenseByIdAsync(expenseId);
-            //if(expenseToBeDeleted != null)
-            //{
-            //    _expenseSharingDbContext.Expenses.Remove(expenseToBeDeleted);
-            //    await _expenseSharingDbContext.SaveChangesAsync();
-
-            //}
         }
 
         public async Task CreateUserBalanceAsync(UserBalance userBalance)
@@ -95,29 +88,9 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             {
                 _expenseSharingDbContext.UserBalances.Update(userBalance);
             }
-            //_expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
-            //await _expenseSharingDbContext.SaveChangesAsync();
+          
             await _expenseSharingDbContext.SaveChangesAsync(); 
         }
-
-        //public async Task UpdateUserBalanceAsync(UserBalance userBalance)
-        //{
-        //    try
-        //    {
-        //        _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
-        //        await _expenseSharingDbContext.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException ex)
-        //    {
-        //        Handle concurrency exception: retry or log the issue
-        //        Example of retry logic:
-        //        var entry = ex.Entries.Single();
-        //        await entry.ReloadAsync(); // Reload the entity from the database
-        //        _expenseSharingDbContext.Entry(userBalance).State = EntityState.Modified;
-        //        await _expenseSharingDbContext.SaveChangesAsync();
-        //    }
-        //}
-
 
         public async Task UpdateExpenseAsync(Expense expense)
         {
@@ -126,26 +99,16 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
 
         }
 
-        public async Task<List<Expense>> GetUserExpensesAsync(string groupId, string userId)
+        public async Task<List<Expense>> GetUserExpensesAsync(string groupid, string userid)
         {
             return await _expenseSharingDbContext.Expenses
-                .Include(e => e.PaidByUser)
-                .Include(e => e.SplitAmong)
-                .Where(e => e.GroupId == groupId && e.SplitAmong.Any(u => u.Id == userId))
                 .AsNoTracking()
+                .Include(e => e.PaidByUser)
+                .Include(e => e.ExpenseSplits)
+                .ThenInclude(es => es.User)
+                .Where(e => e.GroupId == groupid && e.ExpenseSplits.Any(es => es.UserId == userid))
                 .ToListAsync();
         }
-
-        //public async Task<List<Expense>> GetUserExpensesAsync(string groupid, string userid)
-        //{
-        //    return await _expenseSharingDbContext.Expenses
-        //        .AsNoTracking()
-        //        .Include(e => e.ExpenseSplits)
-        //        .ThenInclude(es => es.User)
-        //        .Where(e => e.GroupId == groupid && e.ExpenseSplits.Any(es => es.UserId == userid))
-        //        .ToListAsync();
-        //}
-
 
         public async Task<IEnumerable<ExpenseSplit>> GetExpenseSplitsAsync(string userId, string groupId)
         {
@@ -153,6 +116,11 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
                 .Include(es => es.Expense)
                 .Where(es => es.UserId == userId && es.Expense.GroupId == groupId)
                 .ToListAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _expenseSharingDbContext.SaveChangesAsync();
         }
 
     }
