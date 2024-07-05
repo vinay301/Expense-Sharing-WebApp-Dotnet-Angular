@@ -2,7 +2,8 @@
   <div class="container">
    <h4 class="text-center mt-5 mb-3">All Expenses Of {{groupDetails.name}}</h4>
   <div class="resultTable mt-5">
-    <table class="table">
+    <table class="table" *ngIf="groupDetails.expenses.length > 0">
+     
         <thead class="thead-dark">
           <tr>
             <th scope="col">ExpenseId</th>
@@ -11,14 +12,6 @@
             <th scope="col">Date</th>
           </tr>
         </thead>
-        <!-- <tbody *ngFor="let expense of expenses">        
-          <tr>
-            <td>{{expense.id}}</td>
-            <td>{{expense.description}}</td>
-            <td>{{expense.amount}}</td>
-            <td>{{expense.date | date: 'dd-MM-yyyy'}}</td>
-          </tr>
-        </tbody> -->
         <tbody>
           <ng-container *ngFor="let expense of expenses">
             <tr class="clickable" (click)="toggleExpenseDetails(expense)">
@@ -26,10 +19,15 @@
               <td>{{ expense.description }}</td>
               <td>{{ expense.amount }}</td>
               <td>{{ expense.date | date: 'dd-MM-yyyy' }}</td>
+              <td><mat-icon (click)="deleteExpense(expense.id)" style="cursor: pointer;">delete</mat-icon></td>
             </tr>
+           
             <tr *ngIf="expense.expenseSplits && expense.showDetails">
               <td colspan="4">
                 <div class="details-container">
+                  <div *ngIf="expense.expenseSplits.length=== 0" class="text-center mt-3">
+                    <p>No expenses splits present for this expense.</p>
+                  </div>
                   <h6>Expense Splits:</h6>
                   <table class="table table-bordered">
                     <thead class="thead-light">
@@ -40,17 +38,22 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let split of expense.expenseSplits">
-                        <td>{{ split.user.name}}</td>
-                        <td>{{ split.amount }}</td>
+                        <td>{{ split.owedUser.name}}</td>
+                        <td>{{ split.amountOwed }}</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </td>
             </tr>
+           
           </ng-container>
         </tbody>
-      </table>    
+      </table>   
+      <div *ngIf="groupDetails.expenses.length === 0" class="text-center mt-3">
+        <p>No expenses are present in this group.</p>
+      </div>
+ 
   </div>
   </div>
   </div>

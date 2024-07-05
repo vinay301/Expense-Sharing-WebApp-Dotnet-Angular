@@ -5,6 +5,7 @@ import { Group } from '../../../../core/models/group.model';
 import { Expense } from '../../../../core/models/expense.model';
 import { ExpenseService } from '../../services/expense.service';
 import { ExpenseSplit } from '../../../../core/models/expense-split.model';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-All-Expenses',
@@ -18,7 +19,7 @@ export class AllExpensesComponent implements OnInit {
   expenses: Expense[] = [];
   expId : string ='';
  
-  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService:ExpenseService) { }
+  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService:ExpenseService, private toast : NgToastService) { }
 
   ngOnInit() {
     let groupId = this.activeRoute.snapshot.paramMap.get('id');
@@ -33,17 +34,9 @@ export class AllExpensesComponent implements OnInit {
         console.log(this.expenses)
 
         this.expenses.forEach(expense => {
-          // let expenseId = expense.id
-         
           this.expId = expense.id;
           console.log("expenseId:", this.expId)
-          //this.getExpenseDetailById(this.expId)
         })
-
-        // this.expenseService.getExpenseById(this.expId).subscribe((result: ExpenseSplit) => {
-        //   this.expenses = result.expenseSplits.map((expenseSplits: any) => expenseSplits);
-        //   console.log('ExpenseSplits:', this.expenses);
-        // });
       }
     )
   }
@@ -67,8 +60,21 @@ export class AllExpensesComponent implements OnInit {
   loadExpenseSplits(expense: Expense) {
    this.expenseService.getExpenseById(expense.id).subscribe((result: ExpenseSplit) => {
           expense.expenseSplits = result.expenseSplits.map((expenseSplits: any) => expenseSplits);
+          console.log("expenseSplits:", expense.expenseSplits)
           console.log('ExpenseSplits:', this.expenses);
         });
+  }
+
+  deleteExpense(expenseId:string){
+    this.expenseService.deleteExpense(expenseId).subscribe(
+      () => {
+        this.toast.success("SUCCESS", "Expense Deleted Successfully!", 5000)
+        setTimeout(()=>{
+          window.location.reload();
+        },3000)
+      }
+    
+    )
   }
 
 }
