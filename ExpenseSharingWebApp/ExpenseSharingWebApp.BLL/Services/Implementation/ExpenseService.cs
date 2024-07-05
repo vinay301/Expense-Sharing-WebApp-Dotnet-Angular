@@ -60,7 +60,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             }
             else
             {
-                individualShare = expense.Amount / createExpenseRequestDto.SplitWithUserIds.Count;
+                individualShare = expense.Amount / (createExpenseRequestDto.SplitWithUserIds.Count + 1);
             }
 
             foreach (var userId in createExpenseRequestDto.SplitWithUserIds)
