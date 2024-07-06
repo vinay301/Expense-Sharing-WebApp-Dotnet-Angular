@@ -115,7 +115,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
 
 
        
-            public async Task<ExpenseResponseDto> GetExpenseByIdAsync(string expenseId)
+        public async Task<ExpenseResponseDto> GetExpenseByIdAsync(string expenseId)
         {
             var expense = await _expenseRepository.GetExpenseByIdAsync(expenseId);
             if(expense == null)
