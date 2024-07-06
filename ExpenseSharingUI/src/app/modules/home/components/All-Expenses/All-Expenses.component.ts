@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GroupService } from '../../services/group.service';
 import { ActivatedRoute } from '@angular/router';
 import { Group } from '../../../../core/models/group.model';
@@ -6,6 +6,7 @@ import { Expense } from '../../../../core/models/expense.model';
 import { ExpenseService } from '../../services/expense.service';
 import { ExpenseSplit } from '../../../../core/models/expense-split.model';
 import { NgToastService } from 'ng-angular-popup';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-All-Expenses',
@@ -18,6 +19,7 @@ export class AllExpensesComponent implements OnInit {
   expenseDetails: { [key: string]: ExpenseSplit } = {};
   expenses: Expense[] = [];
   expId : string ='';
+  location = inject(Location)
  
   constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService:ExpenseService, private toast : NgToastService) { }
 
@@ -75,6 +77,10 @@ export class AllExpensesComponent implements OnInit {
       }
     
     )
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

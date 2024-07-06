@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Group } from '../../../../core/models/group.model';
 import { GroupService } from '../../services/group.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { User } from '../../../../core/models/user.model';
 import { Expense } from '../../../../core/models/expense.model';
 import { ExpenseService } from '../../services/expense.service';
 import { AuthService } from '../../../auth/services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-View-Group',
@@ -23,6 +24,8 @@ export class ViewGroupComponent implements OnInit {
   loggedInUserId : string = '';
 
   userIds: string[] = [];
+
+  location = inject(Location);
 
   randomExpenseImages = [
    'https://img.freepik.com/free-vector/bill-analysis-concept-illustration_114360-19348.jpg?t=st=1719413624~exp=1719417224~hmac=123e6b963c2bbc7cb56646dc8718bb58f5879438752aa38e70cbe7e7066f2e06&w=740',
@@ -83,6 +86,10 @@ export class ViewGroupComponent implements OnInit {
   getRandomExpenseImage(): string {
     const randomIndex = Math.floor(Math.random() * this.randomExpenseImages.length);
     return this.randomExpenseImages[randomIndex];
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

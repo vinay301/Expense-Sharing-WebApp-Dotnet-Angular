@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Group } from '../../../../core/models/group.model';
 import { User } from '../../../../core/models/user.model';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { GroupService } from '../../services/group.service';
 import { UserService } from '../../../../core/services/user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-group-members',
@@ -22,6 +23,8 @@ export class GroupMembersComponent implements OnInit {
   selectedItems : User[] = [];
   dropdownSettings : IDropdownSettings = {};
   selectedIds: string[] = [];
+
+  location = inject(Location)
  
   constructor(private activatedRoute : ActivatedRoute, private groupService:GroupService, private userService : UserService, private toast : NgToastService) { }
 
@@ -102,6 +105,11 @@ export class GroupMembersComponent implements OnInit {
         ,1000)
       }
     );
+  }
+
+  
+  back(){
+    this.location.back();
   }
   
 }

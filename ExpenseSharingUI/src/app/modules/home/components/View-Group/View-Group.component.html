@@ -1,7 +1,10 @@
-
-<div class="text-center m-4">
-  {{groupDetails.name}}
+<div class="header">
+  <button class="rounded-pill px-2 py-1 text-white back-button" (click)="back()"><mat-icon class="align-content-center justify-content-center">arrow_back</mat-icon></button>
+  <div class="text-center m-4 header-text">
+    {{groupDetails.name}}
+  </div>
 </div>
+
 <div class="display-row">
   <div class="total-expense-show card">
     <span>{{ totalExpenses | currency:'INR' }}</span>

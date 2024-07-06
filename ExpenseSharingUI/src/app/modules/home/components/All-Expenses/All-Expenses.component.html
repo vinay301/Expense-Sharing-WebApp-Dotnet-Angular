@@ -1,6 +1,13 @@
 <div class="front">
   <div class="container">
-   <h4 class="text-center mt-5 mb-3">All Expenses Of {{groupDetails.name}}</h4>
+    <div class="header">
+      <button class="rounded-pill px-2 py-1 text-white back-button" (click)="back()"><mat-icon class="align-content-center justify-content-center">arrow_back</mat-icon></button>
+        <div class="header-text">
+          <h4 class="text-center mt-3 mb-3">All Expenses Of {{groupDetails.name}}</h4>
+        </div>
+      
+    </div>
+    
   <div class="resultTable mt-5">
     <table class="table" *ngIf="groupDetails.expenses.length > 0">
      

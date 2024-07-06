@@ -1,7 +1,12 @@
 <div class="front">
   <div class="container">
-   <h4 class="text-center mt-5 mb-3">Members Of {{groupDetails.name}}</h4>
-  
+    <div class="header">
+      <button class="rounded-pill px-2 py-1 text-white back-button" (click)="back()"><mat-icon class="align-content-center justify-content-center">arrow_back</mat-icon></button>
+      <div class="header-text">
+        <h4 class="text-center mt-3 mb-3 align-items-center justify-content-center">Members Of {{groupDetails.name}}</h4>
+      </div>
+    </div>
+   
 
    <ng-multiselect-dropdown
   [placeholder]="'Add Members'"
