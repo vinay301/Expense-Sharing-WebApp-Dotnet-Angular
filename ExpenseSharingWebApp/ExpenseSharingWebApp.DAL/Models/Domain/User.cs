@@ -17,6 +17,7 @@ namespace ExpenseSharingWebApp.DAL.Models.Domain
         //public ICollection<Group> Groups { get; set; } // Many-to-many with Group
         public ICollection<Expense> Expenses { get; set; } // Many-to-many with Expense
         public ICollection<UserBalance> UserBalances { get; set; }
+        public ICollection<UserGroupAdmin> GroupsAsAdmin { get; set; } = new List<UserGroupAdmin>(); // Many-to-many relationship with UserGroupAdmin
 
     }
 }

@@ -29,8 +29,7 @@ namespace ExpenseSharingWebApp.DAL.Data
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<ExpenseSplit> ExpenseSplits { get; set; }
         public DbSet<UserBalance> UserBalances { get; set; }
-
-
+        public DbSet<UserGroupAdmin> UserGroupAdmins { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -192,6 +191,20 @@ namespace ExpenseSharingWebApp.DAL.Data
                 .WithMany(g => g.UserGroups)
                 .HasForeignKey(ug => ug.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //UserGroupAdmins
+            modelBuilder.Entity<UserGroupAdmin>()
+           .HasKey(uga => new { uga.UserId, uga.GroupId });
+
+            modelBuilder.Entity<UserGroupAdmin>()
+                .HasOne(uga => uga.User)
+                .WithMany(u => u.GroupsAsAdmin)
+                .HasForeignKey(uga => uga.UserId);
+
+            modelBuilder.Entity<UserGroupAdmin>()
+                .HasOne(uga => uga.Group)
+                .WithMany(g => g.Admins)
+                .HasForeignKey(uga => uga.GroupId);
 
             // Expense - User Many-to-Many relationship for SplitAmong
 

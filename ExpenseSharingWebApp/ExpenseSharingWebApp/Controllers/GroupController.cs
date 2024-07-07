@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ExpenseSharingWebApp.BLL.Services.Interface;
+using ExpenseSharingWebApp.DAL.Models.DTO;
 using ExpenseSharingWebApp.DAL.Models.DTO.Request;
 using ExpenseSharingWebApp.DAL.Models.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -81,6 +82,27 @@ namespace ExpenseSharingWebApp.Controllers
         {
             await _groupService.DeleteUserFromGroupAsync(groupId, userId);
             return Ok();
+        }
+
+        [HttpPost("assignAdmins")]
+        public async Task<IActionResult> AssignAdmins([FromBody] AssignAdminsDto assignAdminsDto)
+        {
+            if (assignAdminsDto == null || string.IsNullOrEmpty(assignAdminsDto.GroupId) || assignAdminsDto.AdminIds == null || !assignAdminsDto.AdminIds.Any())
+            {
+                return BadRequest("Invalid input data");
+            }
+
+            try
+            {
+                await _groupService.AssignAdminsAsync(assignAdminsDto.GroupId, assignAdminsDto.AdminIds);
+                return Ok(new { message = "Admins assigned successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error occurred while assigning admins: {ex.Message}");
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

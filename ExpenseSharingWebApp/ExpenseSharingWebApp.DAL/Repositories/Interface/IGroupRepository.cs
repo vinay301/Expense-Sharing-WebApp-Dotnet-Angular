@@ -18,6 +18,7 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Interface
         Task AddUserToGroupAsync(string groupId, string userId);
         Task<bool> GroupExistsAsync(string groupId);
         Task<User> GetUserByIdAsync(string userId);
+        Task AssignAdminsAsync(string groupId, List<string> adminIds);
         Task SaveChangesAsync();
     }
 }

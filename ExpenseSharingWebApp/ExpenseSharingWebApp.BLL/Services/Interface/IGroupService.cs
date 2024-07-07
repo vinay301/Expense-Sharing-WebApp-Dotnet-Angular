@@ -17,5 +17,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Interface
         Task AddUsersToGroupAsync(string groupId, List<string> userIds);
         Task DeleteGroupAsync(string groupId);
         Task DeleteUserFromGroupAsync(string groupId, string userId);
+        Task AssignAdminsAsync(string groupId, List<string> adminIds);
     }
 }

@@ -322,29 +322,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             var expenses = await _expenseRepository.GetAllExpensesByGroupIdAsync(groupId);
             var balances = new Dictionary<string, decimal>();
 
-            //foreach (var expense in expenses)
-            //{
-            //    foreach (var split in expense.ExpenseSplits)
-            //    {
-            //        if (!balances.ContainsKey(split.UserId))
-            //        {
-            //            balances[split.UserId] = 0;
-            //        }
-            //        if (!balances.ContainsKey(split.PaidToUserId))
-            //        {
-            //            balances[split.PaidToUserId] = 0;
-            //        }
-            //        //update userBalance for user who owed money
-            //        if (split.UserId == expense.PaidByUserId)
-            //        {
-            //            balances[split.UserId] += split.AmountOwed;
-            //        }
-            //        else
-            //        {
-            //            balances[split.UserId] -= split.AmountPaid;
-            //        }
-            //    }
-            //}
             foreach (var expense in expenses)
             {
                 if (!balances.ContainsKey(expense.PaidByUserId))

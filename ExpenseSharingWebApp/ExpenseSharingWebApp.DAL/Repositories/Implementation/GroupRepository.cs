@@ -86,6 +86,43 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             return await _expenseSharingDbContext.Users.FindAsync(userId);
         }
 
+        public async Task AssignAdminsAsync(string groupId, List<string> adminIds)
+        {
+            var group = await _expenseSharingDbContext.Groups
+                                .Include(g => g.Admins)
+                                .FirstOrDefaultAsync(g => g.Id == groupId);
+            if (group == null)
+            {
+                throw new Exception("Group not found.");
+            }
+
+            var admins = await _expenseSharingDbContext.Users
+                .Where(u => adminIds.Contains(u.Id))
+                .ToListAsync();
+
+            group.Admins = admins.Select(a => new UserGroupAdmin
+            {
+                UserId = a.Id,
+                GroupId = group.Id,
+                User = a,
+                Group = group
+            }).ToList();
+
+            _expenseSharingDbContext.Groups.Update(group);
+            await _expenseSharingDbContext.SaveChangesAsync();
+
+            //var group = await _expenseSharingDbContext.Groups.Include(g => g.Admins).FirstOrDefaultAsync(g => g.Id == groupId);
+            //if (group == null)
+            //{
+            //    throw new Exception("Group not found.");
+            //}
+
+            //group.Admins = (ICollection<UserGroupAdmin>)await _expenseSharingDbContext.Users.Where(u => adminIds.Contains(u.Id)).ToListAsync();
+
+            //_expenseSharingDbContext.Groups.Update(group);
+            //await _expenseSharingDbContext.SaveChangesAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _expenseSharingDbContext.SaveChangesAsync();

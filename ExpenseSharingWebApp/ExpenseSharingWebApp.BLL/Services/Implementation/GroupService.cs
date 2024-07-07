@@ -122,5 +122,10 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             group.UserGroups.Remove(userExistsInGroup);
             await _groupRepository.SaveChangesAsync();
         }
+
+        public async Task AssignAdminsAsync(string groupId, List<string> adminIds)
+        {
+            await _groupRepository.AssignAdminsAsync(groupId, adminIds);
+        }
     }
 }
