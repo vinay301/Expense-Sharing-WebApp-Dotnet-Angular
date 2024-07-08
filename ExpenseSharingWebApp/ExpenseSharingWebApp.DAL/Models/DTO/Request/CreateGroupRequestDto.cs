@@ -23,5 +23,6 @@ namespace ExpenseSharingWebApp.DAL.Models.DTO.Request
         [MinLength(1)]
         [MaxLength(10)]
         public List<string> MemberIds { get; set; }
+        public List<string> AdminIds { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace ExpenseSharingWebApp.DAL.Models.DTO.Response
         public List<UserGroupDto> UserGroups { get; set; }
         public List<ExpenseDto> Expenses { get; set; }
         public List<string> MemberIds { get; set; }
+        public List<UserDto> Admins { get; set; }
     }
 }

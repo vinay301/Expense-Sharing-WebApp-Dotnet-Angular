@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExpenseSharingWebApp.BLL.Services.Interface;
 using ExpenseSharingWebApp.DAL.Models.Domain;
+using ExpenseSharingWebApp.DAL.Models.DTO;
 using ExpenseSharingWebApp.DAL.Models.DTO.Request;
 using ExpenseSharingWebApp.DAL.Models.DTO.Response;
 using ExpenseSharingWebApp.DAL.Repositories.Interface;
@@ -56,29 +57,75 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                     throw new Exception($"User with ID {memberId} not found.");
                 }
             }
+            // Add admins to the group
+            group.Admins = new List<UserGroupAdmin>();
+            foreach (var adminId in groupDto.AdminIds)
+            {
+                var user = await _groupRepository.GetUserByIdAsync(adminId);
+                if (user != null)
+                {
+                    group.Admins.Add(new UserGroupAdmin { UserId = user.Id, Group = group });
+                }
+                else
+                {
+                    throw new Exception($"Admin with ID {adminId} not found.");
+                }
+            }
+
             var createdGroup = await _groupRepository.CreateGroupAsync(group);
-            return _mapper.Map<GroupResponseDto>(createdGroup);
+           
+            var groupResponseDto = _mapper.Map<GroupResponseDto>(createdGroup);
+
+            // Retrieve admin details and map them to the response DTO
+            groupResponseDto.Admins = new List<UserDto>();
+            foreach (var admin in group.Admins)
+            {
+                var adminUser = await _groupRepository.GetUserByIdAsync(admin.UserId);
+                if (adminUser != null)
+                {
+                    groupResponseDto.Admins.Add(_mapper.Map<UserDto>(adminUser));
+                }
+            }
+
+            return groupResponseDto;
+           // return _mapper.Map<GroupResponseDto>(createdGroup);
         }
 
         public async Task<GroupResponseDto> GetGroupByIdAsync(string groupId)
         {
-            //return await _groupRepository.GetGroupByIdAsync(groupId);
+           
             var group = await _groupRepository.GetGroupByIdAsync(groupId);
             if (group == null)
             {
                 return null;
             }
+            //var groupResponseDto = _mapper.Map<GroupResponseDto>(group);
+
+            //// Map Admins to the response DTO
+            //groupResponseDto.Admins = group.Admins.Select(admin => _mapper.Map<UserDto>(admin.User)).ToList();
+
+            //return groupResponseDto;
             return _mapper.Map<GroupResponseDto>(group);
         }
 
         public async Task<List<GroupResponseDto>> GetAllGroupsAsync()
         {
-            //return await _groupRepository.GetAllGroupsAsync();
+            
             var groups = await _groupRepository.GetAllGroupsAsync();
             if (groups == null)
             {
                 return null;
             }
+            //var groupResponseDtos = _mapper.Map<List<GroupResponseDto>>(groups);
+
+            //// Map Admins to each group's response DTO
+            //foreach (var group in groups)
+            //{
+            //    var groupResponseDto = groupResponseDtos.First(gr => gr.Id == group.Id);
+            //    groupResponseDto.Admins = group.Admins.Select(admin => _mapper.Map<UserDto>(admin.User)).ToList();
+            //}
+
+            //return groupResponseDtos;
             return _mapper.Map<List<GroupResponseDto>>(groups);
         }
 

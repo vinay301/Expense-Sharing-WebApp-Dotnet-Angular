@@ -31,6 +31,8 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
             return await _expenseSharingDbContext.Groups.Include(g => g.UserGroups)
                                    .ThenInclude(ug => ug.User)
                                    .Include(g => g.Expenses)
+                                   .Include(g => g.Admins)
+                                   .ThenInclude(ga => ga.User)
                                    .FirstOrDefaultAsync(g => g.Id == groupId);
         }
 
@@ -38,7 +40,9 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
         {
             return await _expenseSharingDbContext.Groups.Include(g => g.UserGroups)
                                     .ThenInclude(ug => ug.User)
-                                    .Include(g => g.Expenses) 
+                                    .Include(g => g.Expenses)
+                                    .Include(g => g.Admins)
+                                    .ThenInclude(ga => ga.User)
                                     .ToListAsync();
         }
 
@@ -110,17 +114,6 @@ namespace ExpenseSharingWebApp.DAL.Repositories.Implementation
 
             _expenseSharingDbContext.Groups.Update(group);
             await _expenseSharingDbContext.SaveChangesAsync();
-
-            //var group = await _expenseSharingDbContext.Groups.Include(g => g.Admins).FirstOrDefaultAsync(g => g.Id == groupId);
-            //if (group == null)
-            //{
-            //    throw new Exception("Group not found.");
-            //}
-
-            //group.Admins = (ICollection<UserGroupAdmin>)await _expenseSharingDbContext.Users.Where(u => adminIds.Contains(u.Id)).ToListAsync();
-
-            //_expenseSharingDbContext.Groups.Update(group);
-            //await _expenseSharingDbContext.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

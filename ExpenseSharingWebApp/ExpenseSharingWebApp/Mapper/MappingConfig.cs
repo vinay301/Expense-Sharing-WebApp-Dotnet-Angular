@@ -33,8 +33,14 @@ namespace ExpenseSharingWebApp.Mapper
                     Amount = e.Amount,
                     Description = e.Description,
                     Date = e.Date
+                })))
+                .ForMember(dest => dest.Admins, opt => opt.MapFrom(src => src.Admins.Select(a => new UserDto
+                {
+                    Id = a.User.Id,
+                    Name = a.User.Name,
+                    Email = a.User.Email
                 })));
-                
+
 
                 config.CreateMap<User, UserDto>();
                
@@ -59,6 +65,12 @@ namespace ExpenseSharingWebApp.Mapper
                 .ForMember(dest => dest.UserShare, opt => opt.MapFrom(src => src.AmountOwed))
                 .ForMember(dest => dest.AmountPaid, opt => opt.MapFrom(src => src.AmountPaid))
                 .ForMember(dest => dest.AmountOwed, opt => opt.MapFrom(src => src.AmountOwed));
+
+
+                config.CreateMap<UserGroup, UserGroupDto>()
+             .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.UserId))
+             .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
+
 
             });
             return mappingConfig;
