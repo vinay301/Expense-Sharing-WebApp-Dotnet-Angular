@@ -61,7 +61,24 @@
                                       <small *ngIf="showError && members.invalid" class="text-danger">*Select Group Members</small>               
                                       </div>
                                     
-
+                                      <div class="form-group row col-12">
+                                        <ng-multiselect-dropdown
+                                        [placeholder]="'Select Users To Make Admins'"
+                                        [settings]="dropdownSettings"
+                                        [data]="groupMembers"
+                                        [(ngModel)]="selectedAdmins"
+                                        name="adminIds"
+                                        (click)="onDropdownClick()"
+                                        (onSelect)="onAdminSelect($event)"
+                                        (onDeSelect)="onAdminDeselect($event)"
+                                        (onSelectAll)="onAdminSelectAll($event)"
+                                        (onDeSelectAll)="onAdminDeselectAll($event)"
+                                        #adminIds="ngModel"
+                                        required
+                                      >
+                                      </ng-multiselect-dropdown>
+                                      <small *ngIf="showError && members.invalid" class="text-danger">*Select Admins</small>               
+                                      </div>
                                       <button type="submit" class="btn btn-primary me-2 bt" id="saveBtn" [disabled]="!form.valid">Save</button>
                             </form>
                           </div>

@@ -14,6 +14,9 @@
                   <div class="cart-item-info">
                       <h4>{{group.name}}</h4>
                       <p>{{group.description}}</p>
+                      <div *ngIf="group.admins && group.admins.length > 0" class="display-flex">
+                        <h6>Admins:</h6><p>{{ getAdminNames(group) }}</p>
+                      </div>
                   </div>
                   <div class="order-date d-inline-flex">
                       <p class="text-muted px-4">{{group.createdDate | date:'dd-MM-yyyy'}}</p>

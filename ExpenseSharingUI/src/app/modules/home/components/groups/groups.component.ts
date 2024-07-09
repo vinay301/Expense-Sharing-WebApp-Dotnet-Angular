@@ -35,5 +35,11 @@ export class GroupsComponent implements OnInit {
   getRandomGroupImages() : string {
     return this.randomGroupImages[Math.floor(Math.random() * this.randomGroupImages.length)];
   }
+  getAdminNames(group: Group): string {
+    if (group.admins && group.admins.length > 0) {
+      return group.admins.map(admin => admin.name).join(', ');
+    }
+    return '';
+  }
 
 }

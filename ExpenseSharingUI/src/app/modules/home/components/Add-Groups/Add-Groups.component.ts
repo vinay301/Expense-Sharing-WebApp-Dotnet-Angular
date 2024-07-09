@@ -16,6 +16,8 @@ export class AddGroupsComponent implements OnInit {
 
   users : User[] = [];
   selectedUsers: User[] = [];
+  selectedAdmins: User[] = [];
+  groupMembers: User[] = [];
 
   dropdownList = [];
   selectedItems = [];
@@ -28,7 +30,9 @@ export class AddGroupsComponent implements OnInit {
     createdDate: new Date(),
     memberIds:[],
     userGroups:[],
-    expenses:[]
+    expenses:[],
+    adminIds:[],
+    admins : []
   }
 
   showError = false;
@@ -56,31 +60,68 @@ export class AddGroupsComponent implements OnInit {
   onDropdownClick() {
     this.showError = true;
   }
+
   onItemSelect(item: any) {
     this.addGroupRequest.memberIds.push(item.id);
+    this.updateGroupMembers();
     this.showError = false;
     console.log(this.addGroupRequest.memberIds);
   }
 
   onSelectAll(items: any) {
     this.addGroupRequest.memberIds = items.map((item: User) => item.id);
+    this.updateGroupMembers();
     this.showError = false;
     console.log(this.addGroupRequest.memberIds);
   }
 
   onItemDeselect(item: any) {
     this.addGroupRequest.memberIds = this.addGroupRequest.memberIds.filter(id => id !== item.id);
-    if(this.selectedUsers.length == 0) {
+    this.updateGroupMembers();
+    if (this.selectedUsers.length === 0) {
       this.showError = true;
     }
     console.log(this.addGroupRequest.memberIds);
   }
 
-  onDeselectAll(items:any) {
+  onDeselectAll(items: any) {
     this.addGroupRequest.memberIds = [];
+    this.updateGroupMembers();
     this.showError = true;
     console.log(this.addGroupRequest.memberIds);
   }
+
+  updateGroupMembers() {
+    // Filter the users to only include those that are in the memberIds array
+    this.groupMembers = this.users.filter(user => this.addGroupRequest.memberIds.includes(user.id));
+  }
+
+  onAdminSelect(item: any) {
+    this.addGroupRequest.adminIds.push(item.id);
+    this.showError = false;
+    console.log(this.addGroupRequest.adminIds);
+  }
+
+  onAdminDeselect(item: any) {
+    this.addGroupRequest.adminIds = this.addGroupRequest.adminIds.filter(id => id !== item.id);
+    if (this.selectedAdmins.length === 0) {
+      this.showError = true;
+    }
+    console.log(this.addGroupRequest.adminIds);
+  }
+
+  onAdminSelectAll(items: any) {
+    this.addGroupRequest.adminIds = items.map((item: User) => item.id);
+    this.showError = false;
+    console.log(this.addGroupRequest.adminIds);
+  }
+
+  onAdminDeselectAll(items: any) {
+    this.addGroupRequest.adminIds = [];
+    this.showError = true;
+    console.log(this.addGroupRequest.adminIds);
+  }
+
 
 
   createGroup(){

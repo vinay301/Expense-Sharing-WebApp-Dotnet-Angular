@@ -35,4 +35,8 @@ deleteMemberOfGroup(groupId:string, userId:string){
   return this.http.delete<void>(this.baseApiUrl + `/api/group/DeleteUsersInGroup/${groupId}/${userId}`);
 }
 
+assignAdmins(groupId:string, adminIds : string[]) : Observable<any>{
+  return this.http.post<any>(this.baseApiUrl + `/api/group/assignAdmins`, {groupId,adminIds})
+
+}
 }
