@@ -140,16 +140,37 @@ updateChartData(): void {
   const expensesByUser: { [key: string]: number } = {};
   const userNamesById: { [key: string]: string } = {};
 
+  // this.expenses.forEach(expense => {
+  //   const paidByUserId = expense.paidByUserId;
+  //   const paidByUserName = expense.paidByUser?.name ?? 'Unknown';
+  //   if (!expensesByUser[paidByUserId]) {
+  //     expensesByUser[paidByUserId] = 0;
+  //     userNamesById[paidByUserId] = paidByUserName;
+  //   }
+  //   expensesByUser[paidByUserId] += expense.amount;
+  // });
   this.expenses.forEach(expense => {
-    const paidByUserId = expense.paidByUserId;
+    const paidByUserId = expense.paidByUser.id;
     const paidByUserName = expense.paidByUser?.name ?? 'Unknown';
     if (!expensesByUser[paidByUserId]) {
       expensesByUser[paidByUserId] = 0;
       userNamesById[paidByUserId] = paidByUserName;
     }
+    
     expensesByUser[paidByUserId] += expense.amount;
+    expense.expenseSplits.forEach((split: { isSettled: any; owedUser: { id: any; name: string; }; amountOwed: number; }) => {
+      if (split.isSettled && split.owedUser) {
+        const owedUserId = split.owedUser.id;
+        if (!expensesByUser[owedUserId]) {
+          expensesByUser[owedUserId] = 0;
+          userNamesById[owedUserId] = split.owedUser.name ?? 'Unknown';
+        }
+        expensesByUser[owedUserId] -= split.amountOwed;
+        expensesByUser[paidByUserId] -= split.amountOwed;
+      }
+    });
   });
-
+  console.log(expensesByUser);
   this.chartData = Object.values(expensesByUser);
   this.chartLabels = Object.keys(expensesByUser).map(userId => userNamesById[userId]);
 

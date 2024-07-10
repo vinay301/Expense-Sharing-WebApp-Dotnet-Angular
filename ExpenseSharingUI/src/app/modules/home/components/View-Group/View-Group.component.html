@@ -1,74 +1,77 @@
-<div class="header">
-  <button class="rounded-pill px-2 py-1 text-white back-button" (click)="back()"><mat-icon class="align-content-center justify-content-center">arrow_back</mat-icon></button>
-  <div class="text-center m-4 header-text">
-    {{groupDetails.name}}
+<ng-container *ngIf="groupDetails">
+  <div class="header">
+    <button class="rounded-pill px-2 py-1 text-white back-button" (click)="back()"><mat-icon class="align-content-center justify-content-center">arrow_back</mat-icon></button>
+    <div class="text-center m-4 header-text">
+      {{groupDetails? groupDetails.name : 'Group Details'}}
+    </div>
   </div>
-</div>
-
-<div class="display-row">
-  <div class="total-expense-show card">
-    <span>{{ totalExpenses | currency:'INR' }}</span>
-    <h5>Total Expense</h5>
-  </div>
-
-  <div class="add-expense">
-    <a [routerLink]="['/','add-expense',groupDetails.id]">
-      <mat-icon class="text-light padded-icon">add</mat-icon>
-    </a>
-    <h5>Add Expense</h5>
-  </div>
-
-  <div class="group-members">
-    <a [routerLink]="['/','members',groupDetails.id]">
-      <mat-icon class="text-light padded-icon">group</mat-icon>
-    </a>
-    <h5>Group Members</h5>
-  </div>
-
-  <div class="all-expense">
-      <a [routerLink]="['/','all-expenses',groupDetails.id]">
-        <mat-icon class="text-light padded-icon">money</mat-icon>
+  
+  <div class="display-row">
+    <div class="total-expense-show card">
+      <span>{{ totalExpenses | currency:'INR' }}</span>
+      <h5>Total Expense</h5>
+    </div>
+  
+    <div class="add-expense">
+      <a [routerLink]="['/','add-expense',groupDetails.id]">
+        <mat-icon class="text-light padded-icon">add</mat-icon>
       </a>
-    <h5>All Expenses</h5>
+      <h5>Add Expense</h5>
+    </div>
+  
+    <div class="group-members">
+      <a [routerLink]="['/','members',groupDetails.id]">
+        <mat-icon class="text-light padded-icon">group</mat-icon>
+      </a>
+      <h5>Group Members</h5>
+    </div>
+  
+    <div class="all-expense">
+        <a [routerLink]="['/','all-expenses',groupDetails.id]">
+          <mat-icon class="text-light padded-icon">money</mat-icon>
+        </a>
+      <h5>All Expenses</h5>
+    </div>
+   
+    <div class="all-expense">
+     <app-PieChart [expenses]="expenses" ></app-PieChart>
   </div>
- 
-  <div class="all-expense">
-   <app-PieChart [expenses]="expenses" ></app-PieChart>
-</div>
-</div>
-
- <section class="product-cart">
-  <div class="container heading text-center">
-      <h1 class="text-center font-weight-bold">Your Expenses</h1>
   </div>
-
-  <div class="container" id="cartBgId">
-      <div class="cart">
-          <div class="cart-items"  *ngFor="let expense of expenses">
-              <div class="cart-item">
-                  <div class="cart-item-image">
-                      <img [src]="currentImage" alt="RandomExpenseImage">
-                  </div>
-                  <div class="cart-item-info">
-                      <h4>Amount: {{ expense.amount }}</h4>
-                      <p>{{ expense.description }}</p>
-                  </div>
-                  <div class="order-date d-inline-flex" *ngIf="!expense.isSettled; else settledContent">
-                      <p class="text-muted px-4">{{ expense.date | date: 'dd-MM-yyyy' }}</p>
-                  </div>
-                  <ng-template #settledContent>
-                    <div class="order-date d-inline-flex">
-                        <p class="text-success px-4">Expense Completely Settled &#9989;</p>
+  
+   <section class="product-cart">
+    <div class="container heading text-center">
+        <h1 class="text-center font-weight-bold">Your Expenses</h1>
+    </div>
+  
+    <div class="container" id="cartBgId">
+        <div class="cart">
+            <div class="cart-items"  *ngFor="let expense of expenses">
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img [src]="currentImage" alt="RandomExpenseImage">
                     </div>
-                </ng-template>
-                  <div class="cart-buttons">
-                    <button class="rounded-pill px-2 py-1 text-white" [routerLink]="['/','expense-detail', expense.id]">More Details</button>
+                    <div class="cart-item-info">
+                        <h4>Amount: {{ expense.amount }}</h4>
+                        <p>{{ expense.description }}</p>
+                    </div>
+                    <div class="order-date d-inline-flex" *ngIf="!expense.isSettled; else settledContent">
+                        <p class="text-muted px-4">{{ expense.date | date: 'dd-MM-yyyy' }}</p>
+                    </div>
+                    <ng-template #settledContent>
+                      <div class="order-date d-inline-flex">
+                          <p class="text-success px-4">Expense Completely Settled &#9989;</p>
+                      </div>
+                  </ng-template>
+                    <div class="cart-buttons">
+                      <button class="rounded-pill px-2 py-1 text-white" [routerLink]="['/','expense-detail', expense.id]">More Details</button>
+                  </div>
                 </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
+            </div>
+        </div>
+    </div>
+  </section>
+</ng-container>
+
 
 
 

@@ -1,46 +1,49 @@
-<div class="expense-details">
-  <div class="expense-header">
-    <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
-    <h1>Expense Details</h1>
-    <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="deleteExpense()">delete</button>
-  </div>
- 
- 
-  <div class="expense-info">
-    <h2>General Information</h2>
-    <p><strong>Description:</strong> {{ expenseDetails.description}}</p>
-    <p><strong>Amount:</strong> {{ expenseDetails.amount| currency:'INR' }}</p>
-    <p><strong>Date:</strong> {{ expenseDetails.date | date:'dd-MM-yyyy' }}</p>
-  </div>
-
-  <div class="paid-by-user">
-    <h2>Paid By</h2>
-    <p><strong>Name:</strong> {{ paidByUser.name }}</p>
-    <p><strong>Email:</strong> {{ paidByUser.email }}</p>
-  </div>
-
-  <div class="container" id="cartBgId">
-    <h2>Expense Splits</h2>
-    <div class="cart">
-        <div class="cart-items"  *ngFor="let split of expenseSplits">
-            <div class="cart-item">
-                <div class="cart-item-info">
-                    <h4 [ngClass]="{'green-amount': split.paidByUserId === paidByUser.id,'red-amount': split.paidByUserId !== paidByUser.id}">
-                      Amount: {{ split.amountOwed }} 
-                    </h4>
-                    
-                    <p>Username: {{ split.owedUser.name }}</p>
-                </div>
-                <div *ngIf="split.owedUser.id != split.paidByUserId && !split.isSettled" class="settle-btn">
-                  <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.owedUser.id)">Settle</button>
-                </div>
-                <div>
-                  <span *ngIf="split.isSettled">Already Paid &#9989;</span>
-                </div>
-            </div>
-        </div>
+<ng-container *ngIf="expenseDetails">
+  <div class="expense-details">
+    <div class="expense-header">
+      <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+      <h1>Expense Details</h1>
+      <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="deleteExpense()">delete</button>
     </div>
-</div>
+   
+   
+    <div class="expense-info">
+      <h2>General Information</h2>
+      <p><strong>Description:</strong> {{ expenseDetails.description}}</p>
+      <p><strong>Amount:</strong> {{ expenseDetails.amount| currency:'INR' }}</p>
+      <p><strong>Date:</strong> {{ expenseDetails.date | date:'dd-MM-yyyy' }}</p>
+    </div>
+  
+    <div class="paid-by-user">
+      <h2>Paid By</h2>
+      <p><strong>Name:</strong> {{ paidByUser.name }}</p>
+      <p><strong>Email:</strong> {{ paidByUser.email }}</p>
+    </div>
+  
+    <div class="container" id="cartBgId">
+      <h2>Expense Splits</h2>
+      <div class="cart">
+          <div class="cart-items"  *ngFor="let split of expenseSplits">
+              <div class="cart-item">
+                  <div class="cart-item-info">
+                      <h4 [ngClass]="{'green-amount': split.paidByUserId === paidByUser.id,'red-amount': split.paidByUserId !== paidByUser.id}">
+                        Amount: {{ split.amountOwed }} 
+                      </h4>
+                      
+                      <p>Username: {{ split.owedUser.name }}</p>
+                  </div>
+                  <div *ngIf="split.owedUser.id != split.paidByUserId && !split.isSettled" class="settle-btn">
+                    <button class="rounded-pill px-2 py-1 text-white settle-button" (click)="settleExpense(split.owedUser.id)">Settle</button>
+                  </div>
+                  <div>
+                    <span *ngIf="split.isSettled">Already Paid &#9989;</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  </div>
+</ng-container>
 
-</div>
 
