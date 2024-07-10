@@ -136,6 +136,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                     Name = paidByUser.Name
                 },
                 IsSettled = expense.IsSettled, //this value is false
+                GroupId = expense.GroupId,
                 ExpenseSplits = await Task.WhenAll(expense.ExpenseSplits.Select(async split =>
                 {
                     var owedUser = await _userRepository.GetUserByIdAsync(split.UserId);
@@ -165,12 +166,65 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
 
         public async Task<List<ExpenseResponseDto>> GetAllExpensesByGroupIdAsync(string groupId)
         {
+            //var expenses = await _expenseRepository.GetAllExpensesByGroupIdAsync(groupId);
+            //if(expenses == null)
+            //{
+            //    return null;
+            //}
+            //return _mapper.Map<List<ExpenseResponseDto>>(expenses);
+
             var expenses = await _expenseRepository.GetAllExpensesByGroupIdAsync(groupId);
-            if(expenses == null)
+            if (expenses == null)
             {
                 return null;
             }
-            return _mapper.Map<List<ExpenseResponseDto>>(expenses);
+
+            var expenseResponseDtos = new List<ExpenseResponseDto>();
+
+            foreach (var expense in expenses)
+            {
+                var paidByUser = await _userRepository.GetUserByIdAsync(expense.PaidByUserId);
+                var expenseResponseDto = new ExpenseResponseDto
+                {
+                    Id = expense.Id,
+                    Description = expense.Description,
+                    Amount = expense.Amount,
+                    Date = expense.Date,
+                    PaidByUser = paidByUser == null ? null : new UserDto
+                    {
+                        Id = paidByUser.Id,
+                        Email = paidByUser.Email,
+                        Name = paidByUser.Name
+                    },
+                    IsSettled = expense.IsSettled,
+                    GroupId = expense.GroupId,
+                    ExpenseSplits = await Task.WhenAll(expense.ExpenseSplits.Select(async split =>
+                    {
+                        var owedUser = await _userRepository.GetUserByIdAsync(split.UserId);
+                        return new ExpenseSplitResponeDto
+                        {
+                            ExpenseId = split.ExpenseId,
+                            Description = expense.Description,
+                            Amount = expense.Amount,
+                            Date = expense.Date,
+                            PaidByUserId = expense.PaidByUserId,
+                            UserShare = split.AmountOwed,
+                            AmountPaid = split.AmountPaid,
+                            AmountOwed = split.AmountOwed,
+                            IsSettled = split.IsSettled,
+                            OwedUser = owedUser == null ? null : new UserDto
+                            {
+                                Id = owedUser.Id,
+                                Email = owedUser.Email,
+                                Name = owedUser.Name
+                            }
+                        };
+                    }).ToList())
+                };
+
+                expenseResponseDtos.Add(expenseResponseDto);
+            }
+            return expenseResponseDtos;
         }
 
         public async Task DeleteExpenseAsync(string expenseId)
