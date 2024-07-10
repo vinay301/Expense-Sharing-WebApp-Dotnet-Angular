@@ -7,6 +7,7 @@ import { UserService } from '../../../../core/services/user.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 import { Location } from '@angular/common';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-group-members',
@@ -25,11 +26,15 @@ export class GroupMembersComponent implements OnInit {
   selectedIds: string[] = [];
 
   location = inject(Location)
+  loggedInUserId : string = '';
+  isAdmin : boolean = false;
  
-  constructor(private activatedRoute : ActivatedRoute, private groupService:GroupService, private userService : UserService, private toast : NgToastService) { }
+  constructor(private activatedRoute : ActivatedRoute, private groupService:GroupService, private userService : UserService, private toast : NgToastService, private authService : AuthService) { }
 
   ngOnInit() {
 
+    this.loggedInUserId = this.authService.getUserIdFromToken();
+    console.log(this.loggedInUserId)
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -46,7 +51,9 @@ export class GroupMembersComponent implements OnInit {
         this.groupDetails = res;
         this.members = res.userGroups.map((userGroup: any) => userGroup.user);
         this.loadAddMembersDropDownList();
-       
+        // Check if logged-in user is admin
+        this.isAdmin = res.admins.some(admin => admin.id === this.loggedInUserId);
+       console.log(this.isAdmin)
       }
     )
   }

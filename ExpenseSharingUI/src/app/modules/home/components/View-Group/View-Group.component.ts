@@ -24,7 +24,7 @@ export class ViewGroupComponent implements OnInit {
   loggedInUserId : string = '';
 
   userIds: string[] = [];
-
+  currentImage: string = '';
   location = inject(Location);
 
   randomExpenseImages = [
@@ -40,6 +40,7 @@ export class ViewGroupComponent implements OnInit {
     let groupId = this.activeRoute.snapshot.paramMap.get('id');
     
     groupId && this.loadGroupBalance(groupId);
+    if(groupId){this.currentImage = this.getRandomExpenseImage(groupId);}
     //console.warn(groupId);
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (result : Group) => {
@@ -83,10 +84,26 @@ export class ViewGroupComponent implements OnInit {
     //return Object.keys(this.balances).filter(id => id === this.loggedInUserId);
   }
 
-  getRandomExpenseImage(): string {
-    const randomIndex = Math.floor(Math.random() * this.randomExpenseImages.length);
-    return this.randomExpenseImages[randomIndex];
+  // getRandomExpenseImage(): string {
+  //   const randomIndex = Math.floor(Math.random() * this.randomExpenseImages.length);
+  //   return this.randomExpenseImages[randomIndex];
+  // }
+
+  getRandomExpenseImage(groupId: string): string {
+    const index = this.hashStringToIndex(groupId, this.randomExpenseImages.length);
+    return this.randomExpenseImages[index];
   }
+
+  // Simple hash function to generate an index from a string
+  hashStringToIndex(str: string, max: number): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash % max);
+  }
+
 
   back(){
     this.location.back();

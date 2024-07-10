@@ -10,7 +10,7 @@ import { Group } from '../../../../core/models/group.model';
 export class GroupsComponent implements OnInit {
 
   groups : Group[] = [];
-
+  currentImage: string = '';
   randomGroupImages = [
     'https://img.freepik.com/free-vector/brand-loyalty-concept-illustration_114360-15542.jpg?t=st=1719415701~exp=1719419301~hmac=8220061b750a7192d4cc2e7e194868f94c456dece44169170f5232a191269932&w=740',
     'https://img.freepik.com/free-vector/grades-concept-illustration_114360-618.jpg?t=st=1719415720~exp=1719419320~hmac=26c725f597a4139bfcf0a607c68c7213b864463d0f0460f25c48b3fce7bf8e72&w=740',
@@ -24,6 +24,7 @@ export class GroupsComponent implements OnInit {
     this.groupService.getAllGroups().subscribe({
       next: (groups) => {
         this.groups = groups;
+        //this.currentImage = this.getRandomGroupImages();
         console.log(groups);
       },
       error : (res) => {
@@ -32,8 +33,22 @@ export class GroupsComponent implements OnInit {
     })
   }
 
-  getRandomGroupImages() : string {
-    return this.randomGroupImages[Math.floor(Math.random() * this.randomGroupImages.length)];
+  // getRandomGroupImages() : string {
+  //   return this.randomGroupImages[Math.floor(Math.random() * this.randomGroupImages.length)];
+  // }
+  getRandomGroupImage(groupId: string): string {
+    const index = this.hashStringToIndex(groupId, this.randomGroupImages.length);
+    return this.randomGroupImages[index];
+  }
+
+  // Simple hash function to generate an index from a string
+  hashStringToIndex(str: string, max: number): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash % max);
   }
   getAdminNames(group: Group): string {
     if (group.admins && group.admins.length > 0) {

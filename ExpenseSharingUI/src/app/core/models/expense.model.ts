@@ -1,3 +1,4 @@
+import { ExpenseSplit } from "./expense-split.model";
 import { User } from "./user.model";
 
 
@@ -16,4 +17,5 @@ export interface Expense {
     amountOwed:any;
     amountPaid:any;
     isSettled : boolean //to check particular expense to be settled
+    paidByUser:User
 }

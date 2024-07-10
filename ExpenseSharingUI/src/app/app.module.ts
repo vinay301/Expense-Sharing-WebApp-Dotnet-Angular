@@ -24,6 +24,8 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { CustomMultiSelectComponent } from './shared/components/custom-multi-select/custom-multi-select.component';
 import { ExpenseDetailsComponent } from './modules/home/components/expense-details/expense-details.component';
+import { PieChartComponent } from './shared/components/PieChart/PieChart.component';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ExpenseDetailsComponent } from './modules/home/components/expense-detai
     AddExpenseComponent,
     GroupMembersComponent,
     CustomMultiSelectComponent,
-    ExpenseDetailsComponent
+    ExpenseDetailsComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ExpenseDetailsComponent } from './modules/home/components/expense-detai
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+
   ],
   providers: [
     provideAnimationsAsync(),

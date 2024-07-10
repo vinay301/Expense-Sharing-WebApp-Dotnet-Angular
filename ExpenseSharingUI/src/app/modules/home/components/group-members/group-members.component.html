@@ -7,8 +7,8 @@
       </div>
     </div>
    
-
-   <ng-multiselect-dropdown
+<div *ngIf="isAdmin">
+  <ng-multiselect-dropdown
   [placeholder]="'Add Members'"
   [settings]="dropdownSettings"
   [data]="addMemberList"
@@ -22,6 +22,8 @@
           (click)="addMembers(groupDetails.id)">
   Add Members
   </button>
+</div>
+
 
   <div class="resultTable mt-5">
     <table class="table">
@@ -38,7 +40,10 @@
             <td>{{member.id}}</td>
             <td>{{member.name}}</td>
             <td>{{member.email}}</td>
-            <td><mat-icon (click)="deleteMemberOfGroup(groupDetails.id,member.id)" style="cursor: pointer;">delete</mat-icon></td>
+            <div *ngIf="isAdmin">
+              <td><mat-icon (click)="deleteMemberOfGroup(groupDetails.id,member.id)" style="cursor: pointer;">delete</mat-icon></td>
+            </div>
+            
           </tr>
         </tbody>
       </table>    

@@ -9,7 +9,7 @@
           <div class="cart-items"  *ngFor="let group of groups ">
               <div class="cart-item">
                   <div class="cart-item-image">
-                      <img [src]="getRandomGroupImages()" alt="">
+                      <img [src]="getRandomGroupImage(group.id)" alt="RandomGroupImage">
                   </div>
                   <div class="cart-item-info">
                       <h4>{{group.name}}</h4>

@@ -43,7 +43,13 @@ export class AddExpenseComponent implements OnInit {
     },
     amountOwed:'',
     amountPaid:'',
-    isSettled : false
+    isSettled : false,
+    paidByUser : {
+      id : '',
+      name : '',
+      email : '',
+      password : ''
+    }
     //owedUser : []
   }
 

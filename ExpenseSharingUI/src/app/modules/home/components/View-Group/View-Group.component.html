@@ -31,6 +31,10 @@
       </a>
     <h5>All Expenses</h5>
   </div>
+ 
+  <div class="all-expense">
+   <app-PieChart [expenses]="expenses" ></app-PieChart>
+</div>
 </div>
 
  <section class="product-cart">
@@ -43,7 +47,7 @@
           <div class="cart-items"  *ngFor="let expense of expenses">
               <div class="cart-item">
                   <div class="cart-item-image">
-                      <img [src]="getRandomExpenseImage()" alt="">
+                      <img [src]="currentImage" alt="RandomExpenseImage">
                   </div>
                   <div class="cart-item-info">
                       <h4>Amount: {{ expense.amount }}</h4>
