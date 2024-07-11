@@ -173,8 +173,46 @@ namespace ExpenseSharingWebApp.Test.Repository
             var remainingUserGroups = await _context.Set<UserGroup>().Where(ug => ug.GroupId == "1").ToListAsync();
             Assert.Empty(remainingUserGroups);
         }
+        [Fact]
+        public async Task AssignAdminsAsync_ValidRequest_UpdatesAdminsAndSavesChanges()
+        {
+            // Arrange
+            var groupId = "group1";
+            var adminIds = new List<string> { "admin1", "admin2" };
 
-       
+            var group = new Group
+            {
+                Id = groupId,
+                Name = "Test Group",
+                Admins = new List<UserGroupAdmin>()
+            };
+
+            var admins = new List<User>
+            {
+                new User { Id = "admin1", UserName = "Admin1" },
+                new User { Id = "admin2", UserName = "Admin2" }
+            };
+
+            _context.Groups.Add(group);
+            _context.Users.AddRange(admins);
+            await _context.SaveChangesAsync();
+
+            // Act
+            await _repository.AssignAdminsAsync(groupId, adminIds);
+
+            // Assert
+            var updatedGroup = await _context.Groups
+                .Include(g => g.Admins)
+                .FirstOrDefaultAsync(g => g.Id == groupId);
+
+            Assert.NotNull(updatedGroup);
+            Assert.Equal(2, updatedGroup.Admins.Count);
+            Assert.Contains(updatedGroup.Admins, a => a.UserId == "admin1");
+            Assert.Contains(updatedGroup.Admins, a => a.UserId == "admin2");
+        }
+
+
+
 
     }
 }

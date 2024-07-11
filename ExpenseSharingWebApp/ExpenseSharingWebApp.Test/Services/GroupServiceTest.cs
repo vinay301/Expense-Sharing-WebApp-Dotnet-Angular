@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExpenseSharingWebApp.BLL.Services.Implementation;
 using ExpenseSharingWebApp.DAL.Models.Domain;
+using ExpenseSharingWebApp.DAL.Models.DTO;
 using ExpenseSharingWebApp.DAL.Models.DTO.Request;
 using ExpenseSharingWebApp.DAL.Models.DTO.Response;
 using ExpenseSharingWebApp.DAL.Repositories.Interface;
@@ -33,7 +34,8 @@ namespace ExpenseSharingWebApp.Test.Service
             var createGroupDto = new CreateGroupRequestDto
             {
                 Name = "Test Group",
-                MemberIds = new List<string> { "user1", "user2" }
+                MemberIds = new List<string> { "user1", "user2" },
+                AdminIds = new List<string> { "admin1" }
             };
 
             var group = new Group
@@ -41,18 +43,24 @@ namespace ExpenseSharingWebApp.Test.Service
                 Id = "groupId",
                 Name = "Test Group",
                 CreatedDate = DateTime.UtcNow,
-                UserGroups = new List<UserGroup>()
+                UserGroups = new List<UserGroup>(),
+                Admins = new List<UserGroupAdmin>()
             };
             var groupResponseDto = new GroupResponseDto
             {
                 Id = "groupId",
-                Name = "Test Group"
+                Name = "Test Group",
+                Admins = new List<UserDto> { new UserDto { Id = "admin1" } }
             };
+
+            var user = new User { Id = "user1" };
 
             _mockMapper.Setup(m => m.Map<Group>(createGroupDto)).Returns(group);
             _mockMapper.Setup(m => m.Map<GroupResponseDto>(group)).Returns(groupResponseDto);
+            _mockMapper.Setup(m => m.Map<UserDto>(It.IsAny<User>())).Returns(new UserDto { Id = "admin1" });
+
             _mockGroupRepository.Setup(r => r.GroupExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
-            _mockGroupRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<string>())).ReturnsAsync(new User());
+            _mockGroupRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<string>())).ReturnsAsync(user);
             _mockGroupRepository.Setup(r => r.CreateGroupAsync(It.IsAny<Group>())).ReturnsAsync(group);
 
             // Act
@@ -219,5 +227,20 @@ namespace ExpenseSharingWebApp.Test.Service
             await Assert.ThrowsAsync<Exception>(() => _groupService.DeleteUserFromGroupAsync(groupId, userId));
         }
 
+        [Fact]
+        public async Task AssignAdminsAsync_ValidRequest_Succeeds()
+        {
+            // Arrange
+            var groupId = "group1";
+            var adminIds = new List<string> { "admin1", "admin2" };
+
+            _mockGroupRepository.Setup(r => r.AssignAdminsAsync(groupId, adminIds)).Returns(Task.CompletedTask);
+
+            // Act
+            await _groupService.AssignAdminsAsync(groupId, adminIds);
+
+            // Assert
+            _mockGroupRepository.Verify(r => r.AssignAdminsAsync(groupId, adminIds), Times.Once);
+        }
     }
-    }
+}

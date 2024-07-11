@@ -2,6 +2,7 @@
 using ExpenseSharingWebApp.BLL.Services.Interface;
 using ExpenseSharingWebApp.Controllers;
 using ExpenseSharingWebApp.DAL.Models.Domain;
+using ExpenseSharingWebApp.DAL.Models.DTO;
 using ExpenseSharingWebApp.DAL.Models.DTO.Request;
 using ExpenseSharingWebApp.DAL.Models.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
@@ -181,6 +182,56 @@ namespace ExpenseSharingWebApp.Test.Controllers
             // Assert
             Assert.IsType<OkResult>(result);
             _mockGroupService.Verify(s => s.DeleteUserFromGroupAsync(groupId, userId), Times.Once);
+        }
+
+        [Fact]
+        public async Task AssignAdmins_ValidRequest_ReturnsOk()
+        {
+            // Arrange
+            var assignAdminsDto = new AssignAdminsDto
+            {
+                GroupId = "group1",
+                AdminIds = new List<string> { "admin1", "admin2" }
+            };
+
+            _mockGroupService
+                .Setup(s => s.AssignAdminsAsync(It.IsAny<string>(), It.IsAny<List<string>>()))
+                .Returns(Task.CompletedTask);
+
+            // Act
+            var result = await _controller.AssignAdmins(assignAdminsDto);
+
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(200, okResult.StatusCode);
+
+            Assert.IsType<OkObjectResult>(result);
+            var okObjectResult = result as OkObjectResult;
+
+            Assert.NotNull(okObjectResult?.Value);
+            Assert.IsAssignableFrom<object>(okObjectResult.Value);
+
+            var responseType = okObjectResult.Value.GetType();
+            var messageProperty = responseType.GetProperty("message");
+            Assert.NotNull(messageProperty);
+
+            var messageValue = messageProperty.GetValue(okObjectResult.Value);
+            Assert.Equal("Admins assigned successfully.", messageValue);
+        }
+
+        [Fact]
+        public async Task AssignAdmins_InvalidRequest_ReturnsBadRequest()
+        {
+            // Arrange
+            var assignAdminsDto = new AssignAdminsDto();
+
+            // Act
+            var result = await _controller.AssignAdmins(assignAdminsDto);
+
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.Equal(400, badRequestResult.StatusCode);
+            Assert.Equal("Invalid input data", badRequestResult.Value);
         }
     }
 }

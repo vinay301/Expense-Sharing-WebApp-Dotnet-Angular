@@ -35,8 +35,6 @@ namespace ExpenseSharingWebApp.Controllers
             {
                 var group = await _groupService.CreateGroupAsync(createGroupRequestDto);
                 return Ok(group);
-                //var groupDto = _mapper.Map<GroupResponseDto>(group); // Map entity to DTO
-                //return Ok(groupDto);
             }
             catch (Exception ex)
             {

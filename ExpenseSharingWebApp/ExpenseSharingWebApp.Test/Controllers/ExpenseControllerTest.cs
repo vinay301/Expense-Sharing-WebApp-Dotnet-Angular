@@ -3,6 +3,7 @@ using ExpenseSharingWebApp.Controllers;
 using ExpenseSharingWebApp.DAL.Models.DTO.Request;
 using ExpenseSharingWebApp.DAL.Models.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,15 @@ namespace ExpenseSharingWebApp.Test.Controllers
     public class ExpenseControllerTest
     {
         private readonly Mock<IExpenseService> _mockExpenseService;
+        private readonly Mock<ILogger<ExpenseController>> _loggerMock;
         private readonly ExpenseController _controller;
 
         public ExpenseControllerTest()
         {
             _mockExpenseService = new Mock<IExpenseService>();
-            _controller = new ExpenseController(_mockExpenseService.Object);
+            _loggerMock = new Mock<ILogger<ExpenseController>>();
+            _controller = new ExpenseController(_mockExpenseService.Object, _loggerMock.Object);
+
         }
 
         [Fact]

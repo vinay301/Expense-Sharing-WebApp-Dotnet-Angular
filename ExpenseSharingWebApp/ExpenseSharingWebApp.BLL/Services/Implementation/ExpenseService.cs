@@ -174,9 +174,13 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             //return _mapper.Map<List<ExpenseResponseDto>>(expenses);
 
             var expenses = await _expenseRepository.GetAllExpensesByGroupIdAsync(groupId);
-            if (expenses == null)
+            //if (expenses == null)
+            //{
+            //    return null;
+            //}
+            if (expenses == null || !expenses.Any())
             {
-                return null;
+                return new List<ExpenseResponseDto>(); 
             }
 
             var expenseResponseDtos = new List<ExpenseResponseDto>();

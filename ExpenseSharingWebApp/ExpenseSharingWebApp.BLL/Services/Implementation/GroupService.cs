@@ -27,23 +27,24 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
 
         public async Task<GroupResponseDto> CreateGroupAsync(CreateGroupRequestDto groupDto)
         {
+           
             var group = _mapper.Map<DAL.Models.Domain.Group>(groupDto);
             group.Id = Guid.NewGuid().ToString();
             group.CreatedDate = DateTime.UtcNow;
 
-            // Check for unique group exists
+           
             if (await _groupRepository.GroupExistsAsync(group.Id))
             {
                 throw new Exception("GroupId must be unique");
             }
 
-            // Ensure the number of members does not exceed 10
+           
             if (groupDto.MemberIds.Count > 10)
             {
                 throw new Exception("Group cannot have more than 10 members");
             }
 
-            // Add members to the group
+          
             group.UserGroups = new List<UserGroup>();
             foreach (var memberId in groupDto.MemberIds)
             {
@@ -57,7 +58,7 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
                     throw new Exception($"User with ID {memberId} not found.");
                 }
             }
-            // Add admins to the group
+           
             group.Admins = new List<UserGroupAdmin>();
             foreach (var adminId in groupDto.AdminIds)
             {
@@ -76,7 +77,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
            
             var groupResponseDto = _mapper.Map<GroupResponseDto>(createdGroup);
 
-            // Retrieve admin details and map them to the response DTO
             groupResponseDto.Admins = new List<UserDto>();
             foreach (var admin in group.Admins)
             {
@@ -88,7 +88,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             }
 
             return groupResponseDto;
-           // return _mapper.Map<GroupResponseDto>(createdGroup);
         }
 
         public async Task<GroupResponseDto> GetGroupByIdAsync(string groupId)
@@ -99,12 +98,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             {
                 return null;
             }
-            //var groupResponseDto = _mapper.Map<GroupResponseDto>(group);
-
-            //// Map Admins to the response DTO
-            //groupResponseDto.Admins = group.Admins.Select(admin => _mapper.Map<UserDto>(admin.User)).ToList();
-
-            //return groupResponseDto;
             return _mapper.Map<GroupResponseDto>(group);
         }
 
@@ -116,16 +109,6 @@ namespace ExpenseSharingWebApp.BLL.Services.Implementation
             {
                 return null;
             }
-            //var groupResponseDtos = _mapper.Map<List<GroupResponseDto>>(groups);
-
-            //// Map Admins to each group's response DTO
-            //foreach (var group in groups)
-            //{
-            //    var groupResponseDto = groupResponseDtos.First(gr => gr.Id == group.Id);
-            //    groupResponseDto.Admins = group.Admins.Select(admin => _mapper.Map<UserDto>(admin.User)).ToList();
-            //}
-
-            //return groupResponseDtos;
             return _mapper.Map<List<GroupResponseDto>>(groups);
         }
 

@@ -108,6 +108,7 @@ namespace ExpenseSharingWebApp.Test.Service
             Assert.Equal(user.Id, result.PaidByUser.Id);
         }
 
+        
         [Fact]
         public async Task GetAllExpensesByGroupIdAsync_ExistingGroup_ReturnsListOfExpenseResponseDto()
         {
@@ -115,24 +116,33 @@ namespace ExpenseSharingWebApp.Test.Service
             var groupId = "group1";
             var expenses = new List<Expense>
             {
-                new Expense { Id = "expense1", Description = "Expense 1" },
-                new Expense { Id = "expense2", Description = "Expense 2" }
+                new Expense
+                {
+                    Id = "expense1",
+                    Description = "Expense 1",
+                    PaidByUserId = "user1",
+                    ExpenseSplits = new List<ExpenseSplit>()
+                },
+                new Expense
+                {
+                    Id = "expense2",
+                    Description = "Expense 2",
+                    PaidByUserId = "user2",
+                    ExpenseSplits = new List<ExpenseSplit>()
+                }
             };
-            var expenseResponseDtos = new List<ExpenseResponseDto>
-            {
-                new ExpenseResponseDto { Id = "expense1", Description = "Expense 1" },
-                new ExpenseResponseDto { Id = "expense2", Description = "Expense 2" }
-            };
+
             _mockExpenseRepository.Setup(r => r.GetAllExpensesByGroupIdAsync(groupId)).ReturnsAsync(expenses);
-            _mockMapper.Setup(m => m.Map<List<ExpenseResponseDto>>(expenses)).Returns(expenseResponseDtos);
+            _mockUserRepository.Setup(r => r.GetUserByIdAsync(It.IsAny<string>())).ReturnsAsync(new User());
 
             // Act
             var result = await _expenseService.GetAllExpensesByGroupIdAsync(groupId);
+
             // Assert
             Assert.NotNull(result);
             Assert.Equal(2, result.Count);
-            Assert.Equal(expenseResponseDtos[0].Id, result[0].Id);
-            Assert.Equal(expenseResponseDtos[1].Id, result[1].Id);
+            Assert.Equal("expense1", result[0].Id);
+            Assert.Equal("expense2", result[1].Id);
         }
 
         [Fact]
