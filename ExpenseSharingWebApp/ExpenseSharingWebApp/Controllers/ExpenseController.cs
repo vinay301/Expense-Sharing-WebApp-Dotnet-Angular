@@ -9,10 +9,11 @@ namespace ExpenseSharingWebApp.Controllers
     public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
-
-        public ExpenseController(IExpenseService expenseService)
+        private readonly ILogger<ExpenseController> _logger;
+        public ExpenseController(IExpenseService expenseService, ILogger<ExpenseController> logger)
         {
             this._expenseService = expenseService;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -79,8 +80,8 @@ namespace ExpenseSharingWebApp.Controllers
             catch (Exception ex)
             {
                 // Log the exception (add your logging mechanism here)
-                Console.WriteLine($"Error occurred while settling expense: {ex.Message}");
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                _logger.LogError(ex, "Error occurred while settling expense");
+                return StatusCode(500, "Internal server error");
             }
            
         }
