@@ -4,13 +4,13 @@
     border:none;
 }
 .back-button{
-    background-color: #42bd67;
-    border: 2px solid #42bd67;
+    background-color: #a6674c;
+    border: 2px solid #a6674c;
     margin:5px 5px;
 }
 .back-button:hover{
     transform: translateY(-5px);
-    background-image: linear-gradient(-45deg, #42bd67 0%, #92e3a9 100%);
+    background-image: linear-gradient(-45deg, #a6674c 0%, #b98663 100%);
 }
 
 .header{
