@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./View-Group.component.css']
 })
 export class ViewGroupComponent implements OnInit {
-  sideNavStatus = false;
+  
 
   groupDetails !: Group;
   members: User[] = [];

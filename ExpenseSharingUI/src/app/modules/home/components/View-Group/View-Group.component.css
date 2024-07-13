@@ -1,10 +1,4 @@
-.route-container {
-    transition: margin-left 0.3s;
-  }
-  
-  .route-container.side-nav-open {
-    margin-left: 250px; /* Adjust based on the side nav width */
-  }
+
 .display-details{
     background-color: whitesmoke;
     height:calc(100vh - 4rem);
