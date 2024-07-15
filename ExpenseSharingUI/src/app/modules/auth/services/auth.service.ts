@@ -26,6 +26,7 @@ export class AuthService {
   //To store JWT Token
   storeToken(tokenValue : string){
     localStorage.setItem('expense_token',tokenValue);
+    this.userPayload = this.decryptToken();
   }
   getToken(){
     return localStorage.getItem('expense_token');
