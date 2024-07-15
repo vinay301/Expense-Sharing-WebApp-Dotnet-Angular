@@ -38,7 +38,7 @@ namespace ExpenseSharingWebApp.Test.Controllers
 
             // Act
             var result = await _controller.CreateExpense(createExpenseRequestDto);
-
+            
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal(expenseResponseDto, okResult.Value);
