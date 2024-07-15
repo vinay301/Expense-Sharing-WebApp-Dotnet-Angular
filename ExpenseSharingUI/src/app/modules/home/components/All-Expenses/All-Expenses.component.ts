@@ -7,6 +7,7 @@ import { ExpenseService } from '../../services/expense.service';
 import { ExpenseSplit } from '../../../../core/models/expense-split.model';
 import { NgToastService } from 'ng-angular-popup';
 import { Location } from '@angular/common';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-All-Expenses',
@@ -20,14 +21,20 @@ export class AllExpensesComponent implements OnInit {
   expenses: Expense[] = [];
   expId : string ='';
   location = inject(Location)
+
+  isAdmin : boolean = false;
+  loggedInUserId : string = '';
  
-  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService:ExpenseService, private toast : NgToastService) { }
+  constructor(private groupService : GroupService, private activeRoute : ActivatedRoute, private expenseService:ExpenseService, private toast : NgToastService, private authService : AuthService) { }
 
   ngOnInit() {
+    this.loggedInUserId = this.authService.getUserIdFromToken();
     let groupId = this.activeRoute.snapshot.paramMap.get('id');
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (res : Group) => {
         this.groupDetails = res;
+        this.isAdmin = res.admins.some(admin => admin.id === this.loggedInUserId);
+        console.log(this.isAdmin)
         this.expenses = res.expenses.map(expense => ({
           ...expense,
           showDetails:false,

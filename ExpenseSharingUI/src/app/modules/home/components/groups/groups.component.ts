@@ -33,9 +33,6 @@ export class GroupsComponent implements OnInit {
     })
   }
 
-  // getRandomGroupImages() : string {
-  //   return this.randomGroupImages[Math.floor(Math.random() * this.randomGroupImages.length)];
-  // }
   getRandomGroupImage(groupId: string): string {
     const index = this.hashStringToIndex(groupId, this.randomGroupImages.length);
     return this.randomGroupImages[index];

@@ -23,7 +23,7 @@ export class ViewGroupComponent implements OnInit {
 
   balances: { [key: string]: number } = {};
   loggedInUserId : string = '';
-
+  isAdmin : boolean = false;
   userIds: string[] = [];
   currentImage: string = '';
   location = inject(Location);
@@ -46,6 +46,8 @@ export class ViewGroupComponent implements OnInit {
     groupId && this.groupService.getGroupById(groupId).subscribe(
       (result : Group) => {
         this.groupDetails = result;
+        this.isAdmin = result.admins.some(admin => admin.id === this.loggedInUserId);
+        console.log(this.isAdmin)
         // console.warn(result)
         // console.log("members:", result.userGroups)
         // Extract users from userGroups
